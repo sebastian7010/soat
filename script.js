@@ -72,13 +72,13 @@ function setupServiceButtons() {
                     mensaje = "Estoy interesado en renovar mi SOAT"
                     break
                 case "entretenimiento":
-                    mensaje = "Hola estoy interesado en comprar cuentas de streaming"
+                    mensaje = "Hola estoy interesado en comprar cuentas de streaming Netflix -Disney -Amazon -Star -Hbo max +-Win+-YouTube -Spotify -Paramount -Plex-Iptv-Cuncryroll -Vix-Directv go-Chat gpt-Canva -Cap cut-Duolingo--Gemini-Hot go xxx -Por hub"
                     break
                 case "tramites":
-                    mensaje = "Hola estoy interesado en resolver mis trámites de tránsito"
+                    mensaje = "Hola estoy interesado en resolver mis trámites de tránsito  -Consulta de comparendos -Asesoría en compra de vehículos//verificación de documentos -traspaso de vehículos -Sacada de Improntas-Llenada de formularios de compra y venta de vehículos   "
                     break
                 case "smarttv":
-                    mensaje = "Hola quiero convertir mi TV a Smart TV con Watch On"
+                    mensaje = "Hola quiero convertir mi TV a Smart TV   con  aplicaciones de televisión, películas y series  ya  instalada "
                     break
                 case "polizas":
                     mensaje =
