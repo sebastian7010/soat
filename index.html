@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Integrales - SOAT, Entretenimiento y más</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Partículas flotantes -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="nav-btn">
+                <i class="fas fa-cogs"></i>
+                Servicios
+            </button>
+            <button class="nav-btn">
+                <i class="fas fa-box"></i>
+                Productos
+            </button>
+        </div>
+        <div class="nav-center">
+            <div class="logo">
+                <i class="fas fa-star"></i>
+                <span>LOGO</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Botones principales de servicios -->
+    <main class="main-content">
+        <div class="services-grid">
+            <button class="service-btn" data-service="soat">
+                <i class="fas fa-car"></i>
+                <span>SOAT</span>
+            </button>
+
+            <button class="service-btn" data-service="entretenimiento">
+                <i class="fas fa-play-circle"></i>
+                <span>Cuestas Netflix Disney ...</span>
+            </button>
+
+            <button class="service-btn" data-service="tramites">
+                <i class="fas fa-file-alt"></i>
+                <span>Trámites de Tránsito</span>
+            </button>
+
+            <button class="service-btn" data-service="smarttv">
+                <i class="fas fa-tv"></i>
+                <span>whatch onn</span>
+            </button>
+
+            <button class="service-btn" data-service="polizas">
+                <i class="fas fa-shield-alt"></i>
+                <span>Pólizas de Seguro</span>
+            </button>
+
+            <button class="service-btn" data-service="perfumes">
+                <i class="fas fa-spray-can"></i>
+                <span>Perfumes</span>
+            </button>
+
+            <button class="service-btn" data-service="recargas">
+                <i class="fas fa-mobile-alt"></i>
+                <span>Recargas de Celular</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Sección de perfumes -->
+    <section class="perfumes-section" id="perfumes-section">
+        <h2>Selecciona tu Perfume</h2>
+        <div class="perfumes-grid" id="perfumes-grid">
+            <!-- Los perfumes se cargarán dinámicamente -->
+        </div>
+    </section>
+
+    <!-- Sección de ubicaciones -->
+    <section class="locations-section">
+        <h2>Nuestras Ubicaciones</h2>
+
+        <div class="location">
+            <h3>Clínica de Bicicletas</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d495.96169744578856!2d-75.43002094615882!3d6.036720397357264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4697ca20fb8493%3A0xaffcad710abdd6f2!2sCl%C3%ADnica%20de%20bicicletas!5e0!3m2!1sen!2sco!4v1757112694715!5m2!1sen!2sco"
+                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+        <div class="location">
+            <h3>ORTOMEDIC</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3968.160847444762!2d-75.36065621044439!3d5.972574948565051!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e469615b3bbea65%3A0x9da2c7eda7eb2898!2sORTOMEDIC!5e0!3m2!1sen!2sco!4v1757112802131!5m2!1sen!2sco"
+                    width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Derechos reservados tolentinosftw</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

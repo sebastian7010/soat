@@ -1,0 +1,41 @@
+[{
+        "nombre": "Chanel No. 5",
+        "precio": "150000",
+        "imagen": "ass"
+    },
+    {
+        "nombre": "Dior Sauvage",
+        "precio": "120000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    },
+    {
+        "nombre": "Versace Eros",
+        "precio": "95000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    },
+    {
+        "nombre": "Hugo Boss",
+        "precio": "85000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    },
+    {
+        "nombre": "Paco Rabanne",
+        "precio": "110000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    },
+    {
+        "nombre": "Carolina Herrera",
+        "precio": "130000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    },
+    {
+        "nombre": "Armani Code",
+        "precio": "105000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    },
+    {
+        "nombre": "Dolce & Gabbana",
+        "precio": "115000",
+        "imagen": "/placeholder.svg?height=80&width=80"
+    }
+]
