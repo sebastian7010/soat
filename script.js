@@ -72,13 +72,13 @@ function setupServiceButtons() {
                     mensaje = "Estoy interesado en renovar mi SOAT"
                     break
                 case "entretenimiento":
-                    mensaje = "Hola estoy interesado en comprar cuentas de streaming Netflix -Disney -Amazon -Star -Hbo max +-Win+-YouTube -Spotify -Paramount -Plex-Iptv-Cuncryroll -Vix-Directv go-Chat gpt-Canva -Cap cut-Duolingo--Gemini-Hot go xxx -Por hub"
+                    mensaje = "Hola estoy interesado en comprar cuentas de streaming"
                     break
                 case "tramites":
-                    mensaje = "Hola estoy interesado en resolver mis trámites de tránsito  -Consulta de comparendos -Asesoría en compra de vehículos//verificación de documentos -traspaso de vehículos -Sacada de Improntas-Llenada de formularios de compra y venta de vehículos   "
+                    mensaje = "Hola estoy interesado en resolver mis trámites de tránsito"
                     break
                 case "smarttv":
-                    mensaje = "Hola quiero convertir mi TV a Smart TV   con  aplicaciones de televisión, películas y series  ya  instalada "
+                    mensaje = "Hola quiero convertir mi TV a Smart TV con Watch On"
                     break
                 case "polizas":
                     mensaje =
@@ -117,11 +117,59 @@ function animateButtons() {
     })
 }
 
+function setupNavButtons() {
+    const serviciosBtn = document.querySelector(".nav-btn:first-child")
+    const productosBtn = document.querySelector(".nav-btn:last-child")
+
+    // Botones de servicios: SOAT, entretenimiento, trámites, recargas
+    const serviciosButtons = ["soat", "entretenimiento", "tramites", "recargas"]
+
+    // Botones de productos: smarttv, perfumes, polizas
+    const productosButtons = ["smarttv", "perfumes", "polizas"]
+
+    serviciosBtn.addEventListener("click", () => {
+        // Remover clase active de todos los nav buttons
+        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
+            // Agregar clase active al botón clickeado
+        serviciosBtn.classList.add("active")
+
+        // Remover highlight de todos los botones
+        document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
+
+        // Agregar highlight a botones de servicios
+        serviciosButtons.forEach((service) => {
+            const button = document.querySelector(`[data-service="${service}"]`)
+            if (button) {
+                button.classList.add("highlighted")
+            }
+        })
+    })
+
+    productosBtn.addEventListener("click", () => {
+        // Remover clase active de todos los nav buttons
+        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
+            // Agregar clase active al botón clickeado
+        productosBtn.classList.add("active")
+
+        // Remover highlight de todos los botones
+        document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
+
+        // Agregar highlight a botones de productos
+        productosButtons.forEach((product) => {
+            const button = document.querySelector(`[data-service="${product}"]`)
+            if (button) {
+                button.classList.add("highlighted")
+            }
+        })
+    })
+}
+
 // Inicializar todo cuando cargue la página
 document.addEventListener("DOMContentLoaded", () => {
     createParticles()
     loadPerfumes()
     setupServiceButtons()
+    setupNavButtons() // Agregando setup de navegación
     animateButtons()
 })
 

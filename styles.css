@@ -79,6 +79,11 @@ body {
     gap: 5px;
 }
 
+.nav-btn.active {
+    background: linear-gradient(45deg, #ff4444, #ff6666);
+    box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+}
+
 .nav-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
@@ -132,6 +137,46 @@ body {
     animation: pulse 3s ease-in-out infinite;
 }
 
+.service-btn[data-service="perfumes"] {
+    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
+    color: white !important;
+    border: none;
+}
+
+.service-btn[data-service="perfumes"] i {
+    color: white !important;
+}
+
+.service-btn[data-service="perfumes"]:hover {
+    background: linear-gradient(135deg, #be185d 0%, #ec4899 100%) !important;
+    color: white !important;
+}
+
+
+/* Asegurar que el botón de perfumes mantenga su color fucsia incluso cuando está highlighted */
+
+.service-btn[data-service="perfumes"].highlighted {
+    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
+    color: white !important;
+    animation: highlightPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6) !important;
+}
+
+.service-btn[data-service="perfumes"].highlighted i {
+    color: white !important;
+}
+
+.service-btn.highlighted {
+    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+    color: black;
+    animation: highlightPulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.service-btn.highlighted i {
+    color: black;
+}
+
 .service-btn i {
     font-size: 24px;
 }
@@ -148,6 +193,18 @@ body {
     }
     50% {
         transform: scale(1.02);
+    }
+}
+
+@keyframes highlightPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
     }
 }
 
@@ -258,13 +315,94 @@ body {
 /* Footer */
 
 .footer {
-    background: #000000;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     text-align: center;
-    padding: 20px;
-    border-top: 2px solid #ffd700;
-    color: #ffd700;
+    padding: 30px 20px;
+    border-top: 3px solid #ffd700;
+    color: #ffffff;
     position: relative;
     z-index: 5;
+    box-shadow: 0 -5px 15px rgba(255, 215, 0, 0.2);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-info {
+    background: rgba(255, 215, 0, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ffd700;
+}
+
+.contact-info p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    animation: pulse 2s infinite;
+}
+
+.locations-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.locations-info p {
+    margin: 0;
+    padding: 12px;
+    background: rgba(255, 0, 0, 0.1);
+    border-left: 4px solid #ff0000;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.locations-info p:hover {
+    background: rgba(255, 0, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.copyright {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.copyright p {
+    margin: 0;
+    font-size: 12px;
+    color: #cccccc;
+    font-style: italic;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+    .locations-info {
+        flex: 1;
+        margin: 0 20px;
+    }
+    .copyright {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+        text-align: right;
+    }
 }
 
 
