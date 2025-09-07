@@ -21,21 +21,26 @@
     {
         "nombre": "Paco Rabanne",
         "precio": "110000",
-        "imagen": "/Captura de pantalla 2025-09-05 182713.png"
+        "imagen": "Captura de pantalla 2025-09-05 182713.png"
     },
     {
         "nombre": "Carolina Herrera",
         "precio": "130000",
-        "imagen": "/placeholder.svg?height=80&width=80"
+        "imagen": "Captura de pantalla 2025-09-05 182713.png"
     },
     {
         "nombre": "Armani Code",
         "precio": "105000",
-        "imagen": "/placeholder.svg?height=80&width=80"
+        "imagen": "Captura de pantalla 2025-09-05 182713.png"
     },
     {
         "nombre": "Dolce & Gabbana",
         "precio": "115000",
-        "imagen": "/placeholder.svg?height=80&width=80"
+        "imagen": "Captura de pantalla 2025-09-05 182713.png"
+    },
+    {
+        "nombre": "GOLDMAN",
+        "precio": "115000",
+        "imagen": "Captura de pantalla 2025-09-05 182713.png"
     }
 ]

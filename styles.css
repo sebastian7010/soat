@@ -138,7 +138,7 @@ body {
 }
 
 .service-btn[data-service="perfumes"] {
-    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
+    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
     color: white !important;
     border: none;
 }
@@ -148,7 +148,7 @@ body {
 }
 
 .service-btn[data-service="perfumes"]:hover {
-    background: linear-gradient(135deg, #be185d 0%, #ec4899 100%) !important;
+    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
     color: white !important;
 }
 
@@ -156,10 +156,10 @@ body {
 /* Asegurar que el botón de perfumes mantenga su color fucsia incluso cuando está highlighted */
 
 .service-btn[data-service="perfumes"].highlighted {
-    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
+    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
     color: white !important;
     animation: highlightPulse 1.5s ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6) !important;
+    box-shadow: 0 0 20px rgba(236, 192, 72, 0.6) !important;
 }
 
 .service-btn[data-service="perfumes"].highlighted i {
