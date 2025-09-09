@@ -6,8 +6,8 @@
 
 body {
     font-family: "Arial", sans-serif;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-    color: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+    color: #000000;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -26,8 +26,8 @@ body {
 }
 
 .particle {
-    position: absolute;
-    background: #ffd700;
+    /* Cambiando partículas a color rojo */
+    background: #dc2626;
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
 }
@@ -52,11 +52,13 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 15px 20px;
-    background: rgba(255, 215, 0, 0.1);
+    /* Cambiando navbar a fondo blanco con borde rojo */
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid #ffd700;
+    border-bottom: 2px solid #dc2626;
     position: relative;
     z-index: 10;
+    box-shadow: 0 2px 10px rgba(220, 38, 38, 0.1);
 }
 
 .nav-left {
@@ -65,7 +67,8 @@ body {
 }
 
 .nav-btn {
-    background: linear-gradient(45deg, #ff4444, #ff6666);
+    /* Botones de navegación en negro */
+    background: linear-gradient(45deg, #000000, #1a1a1a);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -80,18 +83,22 @@ body {
 }
 
 .nav-btn.active {
-    background: linear-gradient(45deg, #ff4444, #ff6666);
-    box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+    /* Estado activo en rojo */
+    background: linear-gradient(45deg, #dc2626, #ef4444);
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
 }
 
 .nav-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+    /* Hover en rojo */
+    background: linear-gradient(45deg, #dc2626, #ef4444);
+    box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
 }
 
 .logo {
-    background: linear-gradient(45deg, #ffd700, #ffa500);
-    color: black;
+    /* Logo en rojo con texto blanco */
+    background: linear-gradient(45deg, #dc2626, #ef4444);
+    color: white;
     padding: 12px 20px;
     border-radius: 30px;
     font-weight: bold;
@@ -99,7 +106,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
 }
 
 
@@ -120,9 +127,10 @@ body {
 }
 
 .service-btn {
-    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-    color: black;
-    border: none;
+    /* Botones de servicio en blanco con borde negro */
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #000000;
+    border: 2px solid #000000;
     padding: 25px 15px;
     border-radius: 20px;
     font-size: 14px;
@@ -133,17 +141,18 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
     animation: pulse 3s ease-in-out infinite;
 }
 
 .service-btn[data-service="perfumes"] {
+    /* Botón de perfumes mantiene color fucsia */
     background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
     color: white !important;
-    border: none;
+    border: 2px solid #ec4899 !important;
 }
 
-.service-btn[data-service="perfumes"] i {
+.service-btn[data-service="perfumes"] svg {
     color: white !important;
 }
 
@@ -152,9 +161,6 @@ body {
     color: white !important;
 }
 
-
-/* Asegurar que el botón de perfumes mantenga su color fucsia incluso cuando está highlighted */
-
 .service-btn[data-service="perfumes"].highlighted {
     background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
     color: white !important;
@@ -162,28 +168,39 @@ body {
     box-shadow: 0 0 20px rgba(236, 72, 153, 0.6) !important;
 }
 
-.service-btn[data-service="perfumes"].highlighted i {
+.service-btn[data-service="perfumes"].highlighted svg {
     color: white !important;
 }
 
 .service-btn.highlighted {
-    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
-    color: black;
+    /* Estado highlighted en rojo */
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+    border-color: #dc2626;
     animation: highlightPulse 1.5s ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.6);
 }
 
-.service-btn.highlighted i {
-    color: black;
+.service-btn.highlighted svg {
+    color: white;
 }
 
-.service-btn i {
+.service-btn svg {
     font-size: 24px;
+    color: #000000;
 }
 
 .service-btn:hover {
     transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.5);
+    /* Hover en rojo */
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+    border-color: #dc2626;
+    box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
+}
+
+.service-btn:hover svg {
+    color: white;
 }
 
 
@@ -191,7 +208,8 @@ body {
 
 .perfumes-section {
     padding: 40px 20px;
-    background: rgba(255, 215, 0, 0.05);
+    /* Fondo gris claro */
+    background: rgba(0, 0, 0, 0.05);
     margin: 20px 0;
     position: relative;
     z-index: 5;
@@ -204,7 +222,8 @@ body {
 
 .perfumes-section h2 {
     text-align: center;
-    color: #ffd700;
+    /* Títulos en negro */
+    color: #000000;
     margin-bottom: 30px;
     font-size: 24px;
 }
@@ -218,19 +237,21 @@ body {
 }
 
 .perfume-card {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    /* Cards en blanco con borde gris */
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
     border-radius: 15px;
     padding: 15px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid #e5e7eb;
 }
 
 .perfume-card:hover {
-    border-color: #ffd700;
+    /* Hover con borde rojo */
+    border-color: #dc2626;
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2);
 }
 
 .perfume-card img {
@@ -242,13 +263,15 @@ body {
 }
 
 .perfume-card h3 {
-    color: #ffd700;
+    /* Texto en negro */
+    color: #000000;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
 .perfume-card .price {
-    color: #ff4444;
+    /* Precio en rojo */
+    color: #dc2626;
     font-weight: bold;
     font-size: 16px;
 }
@@ -258,7 +281,7 @@ body {
 
 .entretenimiento-section {
     padding: 40px 20px;
-    background: rgba(255, 215, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
     margin: 20px 0;
     position: relative;
     z-index: 5;
@@ -271,7 +294,7 @@ body {
 
 .entretenimiento-section h2 {
     text-align: center;
-    color: #ffd700;
+    color: #000000;
     margin-bottom: 30px;
     font-size: 24px;
 }
@@ -285,13 +308,13 @@ body {
 }
 
 .entertainment-card {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
     border-radius: 15px;
     padding: 15px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid #e5e7eb;
     min-height: 120px;
     display: flex;
     flex-direction: column;
@@ -299,26 +322,26 @@ body {
 }
 
 .entertainment-card:hover {
-    border-color: #ffd700;
+    border-color: #dc2626;
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2);
 }
 
-.entertainment-card i {
+.entertainment-card svg {
     font-size: 28px;
-    color: #ffd700;
+    color: #dc2626;
     margin-bottom: 8px;
 }
 
 .entertainment-card h3 {
-    color: #ffd700;
+    color: #000000;
     font-size: 13px;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 .entertainment-card p {
-    color: #ff4444;
+    color: #dc2626;
     font-weight: bold;
     font-size: 11px;
 }
@@ -328,7 +351,7 @@ body {
 
 .smarttv-section {
     padding: 40px 20px;
-    background: rgba(255, 215, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
     margin: 20px 0;
     position: relative;
     z-index: 5;
@@ -341,7 +364,7 @@ body {
 
 .smarttv-section h2 {
     text-align: center;
-    color: #ffd700;
+    color: #000000;
     margin-bottom: 30px;
     font-size: 24px;
 }
@@ -355,41 +378,41 @@ body {
 }
 
 .smarttv-card {
-    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
     border-radius: 15px;
     padding: 25px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
+    border: 2px solid #e5e7eb;
 }
 
 .smarttv-card:hover {
-    border-color: #ffd700;
+    border-color: #dc2626;
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2);
 }
 
-.smarttv-card i {
+.smarttv-card svg {
     font-size: 45px;
-    color: #ffd700;
+    color: #dc2626;
     margin-bottom: 15px;
 }
 
 .smarttv-card h3 {
-    color: #ffd700;
+    color: #000000;
     font-size: 18px;
     margin-bottom: 8px;
 }
 
 .smarttv-card p {
-    color: #cccccc;
+    color: #6b7280;
     font-size: 14px;
     margin-bottom: 10px;
 }
 
 .smarttv-card .price {
-    color: #ff4444;
+    color: #dc2626;
     font-weight: bold;
     font-size: 18px;
 }
@@ -405,21 +428,22 @@ body {
 
 .locations-section h2 {
     text-align: center;
-    color: #ffd700;
+    color: #000000;
     margin-bottom: 30px;
     font-size: 24px;
 }
 
 .location {
     margin-bottom: 30px;
-    background: rgba(255, 215, 0, 0.1);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 20px;
-    border: 2px solid #ffd700;
+    border: 2px solid #dc2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.1);
 }
 
 .location h3 {
-    color: #ffd700;
+    color: #000000;
     margin-bottom: 15px;
     text-align: center;
 }
@@ -434,14 +458,15 @@ body {
 /* Footer */
 
 .footer {
+    /* Footer en negro */
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     text-align: center;
     padding: 30px 20px;
-    border-top: 3px solid #ffd700;
+    border-top: 3px solid #dc2626;
     color: #ffffff;
     position: relative;
     z-index: 5;
-    box-shadow: 0 -5px 15px rgba(255, 215, 0, 0.2);
+    box-shadow: 0 -5px 15px rgba(220, 38, 38, 0.2);
 }
 
 .footer-content {
@@ -453,20 +478,20 @@ body {
 }
 
 .contact-info {
-    background: rgba(255, 215, 0, 0.1);
+    background: rgba(220, 38, 38, 0.1);
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid #ffd700;
+    border: 1px solid #dc2626;
 }
 
 .contact-info p {
     margin: 0;
     font-size: 18px;
     font-weight: bold;
-    color: #ffd700;
+    color: #dc2626;
 }
 
-.contact-info i {
+.contact-info svg {
     margin-right: 10px;
     animation: pulse 2s infinite;
 }
@@ -480,15 +505,15 @@ body {
 .locations-info p {
     margin: 0;
     padding: 12px;
-    background: rgba(255, 0, 0, 0.1);
-    border-left: 4px solid #ff0000;
+    background: rgba(220, 38, 38, 0.1);
+    border-left: 4px solid #dc2626;
     border-radius: 5px;
     font-size: 14px;
     transition: all 0.3s ease;
 }
 
 .locations-info p:hover {
-    background: rgba(255, 0, 0, 0.2);
+    background: rgba(220, 38, 38, 0.2);
     transform: translateX(5px);
 }
 
@@ -555,7 +580,7 @@ body {
         padding: 12px;
         min-height: 100px;
     }
-    .entertainment-card i {
+    .entertainment-card svg {
         font-size: 24px;
     }
     .entertainment-card h3 {
@@ -580,10 +605,10 @@ body {
     0%,
     100% {
         transform: scale(1);
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.6);
     }
     50% {
         transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        box-shadow: 0 0 30px rgba(220, 38, 38, 0.8);
     }
 }
