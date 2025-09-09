@@ -138,7 +138,7 @@ body {
 }
 
 .service-btn[data-service="perfumes"] {
-    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
+    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
     color: white !important;
     border: none;
 }
@@ -148,7 +148,7 @@ body {
 }
 
 .service-btn[data-service="perfumes"]:hover {
-    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
+    background: linear-gradient(135deg, #be185d 0%, #ec4899 100%) !important;
     color: white !important;
 }
 
@@ -156,10 +156,10 @@ body {
 /* Asegurar que el botón de perfumes mantenga su color fucsia incluso cuando está highlighted */
 
 .service-btn[data-service="perfumes"].highlighted {
-    background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%) !important;
+    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
     color: white !important;
     animation: highlightPulse 1.5s ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(236, 192, 72, 0.6) !important;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6) !important;
 }
 
 .service-btn[data-service="perfumes"].highlighted i {
@@ -184,28 +184,6 @@ body {
 .service-btn:hover {
     transform: translateY(-5px) scale(1.05);
     box-shadow: 0 15px 35px rgba(255, 215, 0, 0.5);
-}
-
-@keyframes pulse {
-    0%,
-    100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-}
-
-@keyframes highlightPulse {
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-    }
 }
 
 
@@ -273,6 +251,147 @@ body {
     color: #ff4444;
     font-weight: bold;
     font-size: 16px;
+}
+
+
+/* Sección de entretenimiento */
+
+.entretenimiento-section {
+    padding: 40px 20px;
+    background: rgba(255, 215, 0, 0.05);
+    margin: 20px 0;
+    position: relative;
+    z-index: 5;
+    display: none;
+}
+
+.entretenimiento-section.active {
+    display: block;
+}
+
+.entretenimiento-section h2 {
+    text-align: center;
+    color: #ffd700;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.entretenimiento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.entertainment-card {
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.entertainment-card:hover {
+    border-color: #ffd700;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.entertainment-card i {
+    font-size: 28px;
+    color: #ffd700;
+    margin-bottom: 8px;
+}
+
+.entertainment-card h3 {
+    color: #ffd700;
+    font-size: 13px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.entertainment-card p {
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+
+/* Sección de smarttv */
+
+.smarttv-section {
+    padding: 40px 20px;
+    background: rgba(255, 215, 0, 0.05);
+    margin: 20px 0;
+    position: relative;
+    z-index: 5;
+    display: none;
+}
+
+.smarttv-section.active {
+    display: block;
+}
+
+.smarttv-section h2 {
+    text-align: center;
+    color: #ffd700;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.smarttv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.smarttv-card {
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.smarttv-card:hover {
+    border-color: #ffd700;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+.smarttv-card i {
+    font-size: 45px;
+    color: #ffd700;
+    margin-bottom: 15px;
+}
+
+.smarttv-card h3 {
+    color: #ffd700;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.smarttv-card p {
+    color: #cccccc;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.smarttv-card .price {
+    color: #ff4444;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 
@@ -426,5 +545,45 @@ body {
     }
     .service-btn {
         padding: 20px;
+    }
+    .entretenimiento-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-width: 100%;
+    }
+    .entertainment-card {
+        padding: 12px;
+        min-height: 100px;
+    }
+    .entertainment-card i {
+        font-size: 24px;
+    }
+    .entertainment-card h3 {
+        font-size: 12px;
+    }
+    .entertainment-card p {
+        font-size: 10px;
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes highlightPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
     }
 }

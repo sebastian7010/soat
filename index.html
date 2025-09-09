@@ -16,11 +16,12 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-left">
-            <button class="nav-btn">
+            <!-- Added IDs to navigation buttons to fix null reference errors -->
+            <button class="nav-btn" id="servicios-btn">
                 <i class="fas fa-cogs"></i>
                 Servicios
             </button>
-            <button class="nav-btn">
+            <button class="nav-btn" id="productos-btn">
                 <i class="fas fa-box"></i>
                 Productos
             </button>
@@ -28,7 +29,7 @@
         <div class="nav-center">
             <div class="logo">
                 <i class="fas fa-star"></i>
-                <span>LOGO PRUEBA</span>
+                <span>LOGO</span>
             </div>
         </div>
     </nav>
@@ -41,9 +42,9 @@
                 <span>SOAT</span>
             </button>
 
-            <button class="service-btn" data-service="polizas">
+            <button class="service-btn" data-service="entretenimiento">
                 <i class="fas fa-play-circle"></i>
-                <span>Pólizas de Seguro</span>
+                <span>Entretenimiento</span>
             </button>
 
             <button class="service-btn" data-service="tramites">
@@ -51,14 +52,14 @@
                 <span>Trámites de Tránsito</span>
             </button>
 
-            <button class="service-btn" data-service="entretenimiento">
+            <button class="service-btn" data-service="smarttv">
                 <i class="fas fa-tv"></i>
-                <span>Cuestas Netflix Disney ...</span>
+                <span>Smart TV</span>
             </button>
 
-            <button class="service-btn" data-service="recargas">
+            <button class="service-btn" data-service="polizas">
                 <i class="fas fa-shield-alt"></i>
-                <span>Recargas de Celular</span>
+                <span>Pólizas de Seguro</span>
             </button>
 
             <button class="service-btn" data-service="perfumes">
@@ -66,9 +67,9 @@
                 <span>Perfumes</span>
             </button>
 
-            <button class="service-btn" data-service="smarttv">
+            <button class="service-btn" data-service="recargas">
                 <i class="fas fa-mobile-alt"></i>
-                <span>whatch onn</span>
+                <span>Recargas de Celular</span>
             </button>
         </div>
     </main>
@@ -81,6 +82,143 @@
         </div>
     </section>
 
+    <!-- Sección de entretenimiento -->
+    <section class="entretenimiento-section" id="entretenimiento-section">
+        <h2>Selecciona tu Servicio de Entretenimiento</h2>
+        <div class="entretenimiento-grid" id="entretenimiento-grid">
+            <!-- Agregando todas las opciones de entretenimiento solicitadas -->
+            <div class="entertainment-card" data-service="netflix">
+                <i class="fab fa-netflix"></i>
+                <h3>Netflix</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="disney">
+                <i class="fab fa-disney"></i>
+                <h3>Disney+</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="amazon">
+                <i class="fab fa-amazon"></i>
+                <h3>Amazon Prime</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="star">
+                <i class="fas fa-star"></i>
+                <h3>Star+</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="hbo">
+                <i class="fas fa-play-circle"></i>
+                <h3>HBO Max</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="win">
+                <i class="fas fa-trophy"></i>
+                <h3>Win+</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="youtube">
+                <i class="fab fa-youtube"></i>
+                <h3>YouTube Premium</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="spotify">
+                <i class="fab fa-spotify"></i>
+                <h3>Spotify</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="paramount">
+                <i class="fas fa-mountain"></i>
+                <h3>Paramount+</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="plex">
+                <i class="fas fa-server"></i>
+                <h3>Plex</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="iptv">
+                <i class="fas fa-satellite-dish"></i>
+                <h3>IPTV</h3>
+                <p>Servicio Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="crunchyroll">
+                <i class="fas fa-dragon"></i>
+                <h3>Crunchyroll</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="vix">
+                <i class="fas fa-video"></i>
+                <h3>Vix+</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="directv">
+                <i class="fas fa-satellite"></i>
+                <h3>Directv Go</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="chatgpt">
+                <i class="fas fa-robot"></i>
+                <h3>Chat GPT</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="canva">
+                <i class="fas fa-palette"></i>
+                <h3>Canva</h3>
+                <p>Cuenta Pro</p>
+            </div>
+            <div class="entertainment-card" data-service="capcut">
+                <i class="fas fa-cut"></i>
+                <h3>CapCut</h3>
+                <p>Cuenta Pro</p>
+            </div>
+            <div class="entertainment-card" data-service="duolingo">
+                <i class="fas fa-language"></i>
+                <h3>Duolingo</h3>
+                <p>Cuenta Plus</p>
+            </div>
+            <div class="entertainment-card" data-service="gemini">
+                <i class="fas fa-gem"></i>
+                <h3>Gemini</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="hotgo">
+                <i class="fas fa-fire"></i>
+                <h3>Hot Go</h3>
+                <p>Cuenta Premium</p>
+            </div>
+            <div class="entertainment-card" data-service="xxx">
+                <i class="fas fa-eye"></i>
+                <h3>XXX</h3>
+                <p>Contenido Adulto</p>
+            </div>
+            <div class="entertainment-card" data-service="pornhub">
+                <i class="fas fa-heart"></i>
+                <h3>PornHub</h3>
+                <p>Cuenta Premium</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de smarttv -->
+    <section class="smarttv-section" id="smarttv-section">
+        <h2>Convierte tu TV en Smart TV</h2>
+        <div class="smarttv-grid" id="smarttv-grid">
+            <div class="smarttv-card" data-product="watchonn">
+                <i class="fas fa-tv"></i>
+                <h3>Watch On Stick</h3>
+                <p>Dispositivo básico</p>
+                <div class="price">$45.000</div>
+            </div>
+            <div class="smarttv-card" data-product="watchonn-pro">
+                <i class="fas fa-desktop"></i>
+                <h3>Watch On Pro</h3>
+                <p>Dispositivo premium</p>
+                <div class="price">$65.000</div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sección de ubicaciones -->
     <section class="locations-section">
         <h2>Nuestras Ubicaciones</h2>
@@ -88,7 +226,7 @@
         <div class="location">
             <h3>Clínica de Bicicletas</h3>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d495.96169744578856!2d-75.43002094615882!3d6.036720397357264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4697ca20fb8493%3A0xaffcad710abdd6f2!2sCl%C3%ADnica%20de%20bicicletas!5e0!3m2!1sen!2sco!4v1757112694715!5m2!1sen!2sco"
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d495.96169744478856!2d-75.43002094615882!3d6.036720397357264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4697ca20fb8493%3A0xaffcad710abdd6f2!2sCl%C3%ADnica%20de%20bicicletas!5e0!3m2!1sen!2sco!4v1757112694715!5m2!1sen!2sco"
                     width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
@@ -102,7 +240,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">

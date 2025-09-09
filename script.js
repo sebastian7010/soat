@@ -61,25 +61,33 @@ async function loadPerfumes() {
 function setupServiceButtons() {
     const buttons = document.querySelectorAll(".service-btn")
     const perfumesSection = document.getElementById("perfumes-section")
+    const entretenimientoSection = document.getElementById("entretenimiento-section")
+    const smarttvSection = document.getElementById("smarttv-section")
 
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
             const service = button.getAttribute("data-service")
             let mensaje = ""
 
+            perfumesSection.classList.remove("active")
+            entretenimientoSection.classList.remove("active")
+            smarttvSection.classList.remove("active")
+
             switch (service) {
                 case "soat":
                     mensaje = "Estoy interesado en renovar mi SOAT"
                     break
                 case "entretenimiento":
-                    mensaje = "Hola estoy interesado en comprar cuentas de streaming"
-                    break
+                    entretenimientoSection.classList.add("active")
+                    entretenimientoSection.scrollIntoView({ behavior: "smooth" })
+                    return
                 case "tramites":
                     mensaje = "Hola estoy interesado en resolver mis trámites de tránsito"
                     break
                 case "smarttv":
-                    mensaje = "Hola quiero convertir mi TV a Smart TV con Watch On"
-                    break
+                    smarttvSection.classList.add("active")
+                    smarttvSection.scrollIntoView({ behavior: "smooth" })
+                    return
                 case "polizas":
                     mensaje =
                         "Hola quiero hacer la póliza de (seguro todo riesgo para vehículo - seguros de viaje - seguros de vida - seguros de hogar)"
@@ -102,24 +110,115 @@ function setupServiceButtons() {
     })
 }
 
-// Animación de entrada para los botones
-function animateButtons() {
-    const buttons = document.querySelectorAll(".service-btn")
-    buttons.forEach((button, index) => {
-        button.style.opacity = "0"
-        button.style.transform = "translateY(50px)"
+function setupEntertainmentButtons() {
+    const entertainmentCards = document.querySelectorAll(".entertainment-card")
 
-        setTimeout(() => {
-            button.style.transition = "all 0.6s ease"
-            button.style.opacity = "1"
-            button.style.transform = "translateY(0)"
-        }, index * 100)
+    entertainmentCards.forEach((card) => {
+        card.addEventListener("click", () => {
+            const service = card.getAttribute("data-service")
+            const serviceName = card.querySelector("h3").textContent
+            let mensaje = ""
+
+            switch (service) {
+                case "netflix":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Netflix"
+                    break
+                case "disney":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Disney+"
+                    break
+                case "amazon":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Amazon Prime"
+                    break
+                case "star":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Star+"
+                    break
+                case "hbo":
+                    mensaje = "Hola estoy interesado en comprar cuenta de HBO Max"
+                    break
+                case "win":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Win+"
+                    break
+                case "youtube":
+                    mensaje = "Hola estoy interesado en comprar cuenta de YouTube Premium"
+                    break
+                case "spotify":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Spotify Premium"
+                    break
+                case "paramount":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Paramount+"
+                    break
+                case "plex":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Plex"
+                    break
+                case "iptv":
+                    mensaje = "Hola estoy interesado en el servicio de IPTV"
+                    break
+                case "crunchyroll":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Crunchyroll"
+                    break
+                case "vix":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Vix+"
+                    break
+                case "directv":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Directv Go"
+                    break
+                case "chatgpt":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Chat GPT Premium"
+                    break
+                case "canva":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Canva Pro"
+                    break
+                case "capcut":
+                    mensaje = "Hola estoy interesado en comprar cuenta de CapCut Pro"
+                    break
+                case "duolingo":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Duolingo Plus"
+                    break
+                case "gemini":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Gemini Premium"
+                    break
+                case "hotgo":
+                    mensaje = "Hola estoy interesado en comprar cuenta de Hot Go"
+                    break
+                case "xxx":
+                    mensaje = "Hola estoy interesado en contenido de entretenimiento adulto"
+                    break
+                case "pornhub":
+                    mensaje = "Hola estoy interesado en comprar cuenta de PornHub Premium"
+                    break
+                default:
+                    mensaje = `Hola estoy interesado en comprar cuenta de ${serviceName}`
+            }
+
+            const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
+            window.open(whatsappUrl, "_blank")
+        })
     })
 }
 
+function setupSmartTVButtons() {
+    const smarttvCards = document.querySelectorAll(".smarttv-card")
+
+    smarttvCards.forEach((card) => {
+        card.addEventListener("click", () => {
+            const product = card.getAttribute("data-product")
+            const productName = card.querySelector("h3").textContent
+            const mensaje = `Hola quiero comprar ${productName} para convertir mi TV a Smart TV`
+            const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
+            window.open(whatsappUrl, "_blank")
+        })
+    })
+}
+
+// Manejar clicks en botones de navegación
 function setupNavButtons() {
-    const serviciosBtn = document.querySelector(".nav-btn:first-child")
-    const productosBtn = document.querySelector(".nav-btn:last-child")
+    const serviciosBtn = document.getElementById("servicios-btn")
+    const productosBtn = document.getElementById("productos-btn")
+
+    if (!serviciosBtn || !productosBtn) {
+        console.error("Navigation buttons not found")
+        return
+    }
 
     // Botones de servicios: SOAT, entretenimiento, trámites, recargas
     const serviciosButtons = ["soat", "entretenimiento", "tramites", "recargas"]
@@ -164,12 +263,29 @@ function setupNavButtons() {
     })
 }
 
+// Animación de entrada para los botones
+function animateButtons() {
+    const buttons = document.querySelectorAll(".service-btn")
+    buttons.forEach((button, index) => {
+        button.style.opacity = "0"
+        button.style.transform = "translateY(50px)"
+
+        setTimeout(() => {
+            button.style.transition = "all 0.6s ease"
+            button.style.opacity = "1"
+            button.style.transform = "translateY(0)"
+        }, index * 100)
+    })
+}
+
 // Inicializar todo cuando cargue la página
 document.addEventListener("DOMContentLoaded", () => {
     createParticles()
     loadPerfumes()
     setupServiceButtons()
-    setupNavButtons() // Agregando setup de navegación
+    setupEntertainmentButtons() // Nueva función
+    setupSmartTVButtons() // Nueva función
+    setupNavButtons()
     animateButtons()
 })
 
