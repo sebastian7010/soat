@@ -430,16 +430,35 @@ function bindAdminControls(current) {
         renderAdminTable(current);
     };
 
-    // Guardar en localStorage
-    btnSave.onclick = () => {
-        try {
-            localStorage.setItem(LS_KEY, JSON.stringify(current));
-            alert("Guardado en este navegador.");
-            loadPerfumes();
-        } catch (e) {
-            alert("No se pudo guardar en localStorage.");
-        }
-    };
+    // Guardar en git
+   btnSave.onclick = async () => {
+  try {
+    // current es tu array [{nombre, precio, descripcion, imagen}, ...]
+    const resp = await fetch("/api/commit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: "Update perfumes.json desde Admin",
+        json: current
+      })
+    });
+
+    const data = await resp.json();
+    if (!resp.ok) {
+      console.error("Commit error:", data);
+      alert("No se pudo guardar en GitHub. Revisa la consola.");
+      return;
+    }
+
+    alert("Cambios guardados en el repositorio (commit hecho).");
+    // Opcional: recargar los perfumes
+    loadPerfumes();
+  } catch (e) {
+    console.error(e);
+    alert("Error inesperado al guardar en GitHub.");
+  }
+};
+
 
     // Exportar JSON (descarga)
     btnExport.onclick = () => {
