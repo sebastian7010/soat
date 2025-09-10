@@ -1,3 +1,48 @@
+/* ========= CONFIG ========= */
+/* Si tu carpeta REAL se llama "perfumes.webp" (carpeta con .webp adentro), deja esta ruta.
+   Si en realidad se llama "perfumes", cámbiala a "./perfumes/". */
+const IMAGES_DIR = "./perfumes.webp/";
+const LS_KEY = "perfumesData_v1";
+/* ========================= */
+
+/* Util: resolver ruta de imagen según si es archivo, ruta o URL */
+function resolveImageSrc(imgField) {
+    if (!imgField) return "";
+    const trimmed = String(imgField).trim();
+    if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith("./") || trimmed.startsWith("/")) {
+        return trimmed; // URL absoluta o ruta relativa explícita
+    }
+    // Si solo dieron el archivo, se busca en IMAGES_DIR
+    return IMAGES_DIR + trimmed;
+}
+
+/* Cargar perfumes desde localStorage o desde perfumes.json */
+async function getPerfumesData() {
+    try {
+        const cached = localStorage.getItem(LS_KEY);
+        if (cached) return JSON.parse(cached);
+    } catch (e) {
+        console.warn("No se pudo leer localStorage:", e);
+    }
+
+    // Fallback: JSON del proyecto
+    try {
+        const resp = await fetch("perfumes.json");
+        const data = await resp.json();
+        // normaliza campos
+        return data.map(p => ({
+            nombre: p.nombre || "",
+            precio: p.precio || "",
+            descripcion: p.descripcion || "",
+            imagen: p.imagen || ""
+        }));
+    } catch (e) {
+        console.error("Error leyendo perfumes.json:", e);
+        return [];
+    }
+}
+
+/* ================== TU CÓDIGO EXISTENTE (conservado) ================== */
 // Crear partículas flotantes
 function createParticles() {
     const container = document.getElementById("particles")
@@ -12,36 +57,64 @@ function createParticles() {
         particle.style.width = size + "px"
         particle.style.height = size + "px"
 
-        // Posición aleatoria
-        particle.style.left = Math.random() * 100 + "%"
-        particle.style.top = Math.random() * 100 + "%"
+        // Dividir la pantalla en zonas para mejor distribución
+        const zone = i % 4
+        let left, top
+
+        switch (zone) {
+            case 0: // Cuadrante superior izquierdo
+                left = Math.random() * 25
+                top = Math.random() * 25
+                break
+            case 1: // Cuadrante superior derecho
+                left = 75 + Math.random() * 25
+                top = Math.random() * 25
+                break
+            case 2: // Cuadrante inferior izquierdo
+                left = Math.random() * 25
+                top = 75 + Math.random() * 25
+                break
+            case 3: // Cuadrante inferior derecho
+                left = 75 + Math.random() * 25
+                top = 75 + Math.random() * 25
+                break
+            default: // Partículas adicionales distribuidas aleatoriamente
+                left = Math.random() * 100
+                top = Math.random() * 100
+        }
+
+        particle.style.left = left + "%"
+        particle.style.top = top + "%"
 
         // Duración de animación aleatoria
         particle.style.animationDuration = Math.random() * 4 + 3 + "s"
         particle.style.animationDelay = Math.random() * 2 + "s"
 
-        // Color aleatorio entre amarillo y rojo
-        const colors = ["#FFD700", "#FF4444", "#FFA500", "#FF6666"]
+        const colors = ["#6b7280", "#9ca3af", "#d1d5db", "#374151"]
         particle.style.background = colors[Math.floor(Math.random() * colors.length)]
 
         container.appendChild(particle)
     }
 }
 
-// Cargar perfumes desde JSON
+/* === MODIFICADO: ahora usa getPerfumesData(), añade descripción y resuelve rutas === */
 async function loadPerfumes() {
     try {
-        const response = await fetch("perfumes.json")
-        const perfumes = await response.json()
+        const perfumes = await getPerfumesData();
         const grid = document.getElementById("perfumes-grid")
+        grid.innerHTML = "";
 
         perfumes.forEach((perfume) => {
-            const card = document.createElement("div")
-            card.className = "perfume-card"
-            card.innerHTML = `
-                <img src="${perfume.imagen}" alt="${perfume.nombre}">
+                    const card = document.createElement("div")
+                    card.className = "perfume-card"
+
+                    const imgSrc = resolveImageSrc(perfume.imagen);
+
+                    card.innerHTML = `
+                <img src="${imgSrc}" alt="${perfume.nombre}">
                 <h3>${perfume.nombre}</h3>
                 <div class="price">$${perfume.precio}</div>
+                ${perfume.descripcion ? `<p style="font-size:12px;color:#374151;margin-top:6px;">${perfume.descripcion}</p>` : ""}
             `
 
             card.addEventListener("click", () => {
@@ -110,6 +183,7 @@ function setupServiceButtons() {
     })
 }
 
+// Manejar clicks en botones de entretenimiento
 function setupEntertainmentButtons() {
     const entertainmentCards = document.querySelectorAll(".entertainment-card")
 
@@ -229,7 +303,7 @@ function setupNavButtons() {
     serviciosBtn.addEventListener("click", () => {
         // Remover clase active de todos los nav buttons
         document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
-            // Agregar clase active al botón clickeado
+        // Agregar clase active al botón clickeado
         serviciosBtn.classList.add("active")
 
         // Remover highlight de todos los botones
@@ -247,7 +321,7 @@ function setupNavButtons() {
     productosBtn.addEventListener("click", () => {
         // Remover clase active de todos los nav buttons
         document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
-            // Agregar clase active al botón clickeado
+        // Agregar clase active al botón clickeado
         productosBtn.classList.add("active")
 
         // Remover highlight de todos los botones
@@ -278,20 +352,155 @@ function animateButtons() {
     })
 }
 
+/* ================== ADMIN PANEL (nuevo) ================== */
+let _adminClicks = 0;
+let _adminClicksTimer = null;
+
+function enableAdminTrigger() {
+    const logo = document.getElementById("admin-logo-trigger");
+    const panel = document.getElementById("admin-panel");
+    if (!logo || !panel) return;
+
+    logo.addEventListener("click", async () => {
+        _adminClicks++;
+        clearTimeout(_adminClicksTimer);
+        _adminClicksTimer = setTimeout(() => { _adminClicks = 0; }, 1200);
+
+        if (_adminClicks >= 5) {
+            _adminClicks = 0;
+            panel.classList.toggle("active");
+            if (panel.classList.contains("active")) {
+                renderAdminTable(await getPerfumesData());
+            }
+        }
+    });
+}
+
+function renderAdminTable(perfumes) {
+    const tbody = document.getElementById("admin-tbody");
+    tbody.innerHTML = "";
+
+    perfumes.forEach((p, idx) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td><input type="text" value="${escapeHtml(p.nombre)}" data-field="nombre"></td>
+      <td><input type="text" value="${escapeHtml(p.precio)}" data-field="precio"></td>
+      <td><textarea data-field="descripcion">${escapeHtml(p.descripcion || "")}</textarea></td>
+      <td><input type="text" value="${escapeHtml(p.imagen)}" placeholder="archivo.webp o URL" data-field="imagen"></td>
+      <td><button class="row-del">Eliminar</button></td>
+    `;
+
+        tbody.appendChild(tr);
+    });
+
+    bindAdminControls(perfumes);
+}
+
+function bindAdminControls(current) {
+    const tbody = document.getElementById("admin-tbody");
+    const btnAdd = document.getElementById("admin-add");
+    const btnSave = document.getElementById("admin-save");
+    const btnExport = document.getElementById("admin-export");
+    const inputImport = document.getElementById("admin-import");
+
+    // Editar campos
+    tbody.addEventListener("input", (e) => {
+        const tr = e.target.closest("tr");
+        const index = [...tbody.children].indexOf(tr);
+        const field = e.target.getAttribute("data-field");
+        if (!field) return;
+        current[index][field] = e.target.value;
+    });
+
+    // Eliminar fila
+    tbody.addEventListener("click", (e) => {
+        if (e.target.classList.contains("row-del")) {
+            const tr = e.target.closest("tr");
+            const index = [...tbody.children].indexOf(tr);
+            current.splice(index, 1);
+            renderAdminTable(current);
+        }
+    });
+
+    // Agregar fila
+    btnAdd.onclick = () => {
+        current.push({ nombre: "", precio: "", descripcion: "", imagen: "" });
+        renderAdminTable(current);
+    };
+
+    // Guardar en localStorage
+    btnSave.onclick = () => {
+        try {
+            localStorage.setItem(LS_KEY, JSON.stringify(current));
+            alert("Guardado en este navegador.");
+            loadPerfumes();
+        } catch (e) {
+            alert("No se pudo guardar en localStorage.");
+        }
+    };
+
+    // Exportar JSON (descarga)
+    btnExport.onclick = () => {
+        const blob = new Blob([JSON.stringify(current, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.download = "perfumes.json";
+        a.href = url;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
+
+    // Importar JSON
+    inputImport.onchange = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+            try {
+                const data = JSON.parse(String(reader.result));
+                if (!Array.isArray(data)) throw new Error("Formato inválido");
+                const norm = data.map(p => ({
+                    nombre: p.nombre || "",
+                    precio: p.precio || "",
+                    descripcion: p.descripcion || "",
+                    imagen: p.imagen || ""
+                }));
+                renderAdminTable(norm);
+                current.splice(0, current.length, ...norm);
+            } catch (err) {
+                alert("JSON inválido.");
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = "";
+    };
+}
+
+function escapeHtml(s) {
+    return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+}
+
+/* ================== INIT ================== */
 // Inicializar todo cuando cargue la página
 document.addEventListener("DOMContentLoaded", () => {
     createParticles()
     loadPerfumes()
     setupServiceButtons()
-    setupEntertainmentButtons() // Nueva función
-    setupSmartTVButtons() // Nueva función
+    setupEntertainmentButtons()
+    setupSmartTVButtons()
     setupNavButtons()
     animateButtons()
+    enableAdminTrigger() // activar panel admin oculto (5 clics al logo)
 })
 
-// Recrear partículas cada 10 segundos para mantener la animación
 setInterval(() => {
     const container = document.getElementById("particles")
     container.innerHTML = ""
     createParticles()
-}, 10000)
+}, 8000)

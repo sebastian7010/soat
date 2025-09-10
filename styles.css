@@ -26,10 +26,11 @@ body {
 }
 
 .particle {
-    /* Cambiando partículas a color rojo */
-    background: #dc2626;
+    /* Cambiando partículas a color gris y corrigiendo posicionamiento */
+    background: #6b7280;
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
+    position: absolute;
 }
 
 @keyframes float {
@@ -146,30 +147,36 @@ body {
 }
 
 .service-btn[data-service="perfumes"] {
-    /* Botón de perfumes mantiene color fucsia */
-    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
-    color: white !important;
-    border: 2px solid #ec4899 !important;
+    /* Botón de perfumes sin estilo fucsia para que coincida con los demás */
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    color: #000000;
+    border: 2px solid #000000;
 }
 
 .service-btn[data-service="perfumes"] svg {
-    color: white !important;
+    color: #000000;
 }
 
 .service-btn[data-service="perfumes"]:hover {
-    background: linear-gradient(135deg, #be185d 0%, #ec4899 100%) !important;
-    color: white !important;
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+    border-color: #dc2626;
+}
+
+.service-btn[data-service="perfumes"]:hover svg {
+    color: white;
 }
 
 .service-btn[data-service="perfumes"].highlighted {
-    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%) !important;
-    color: white !important;
+    background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+    color: white;
+    border-color: #dc2626;
     animation: highlightPulse 1.5s ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6) !important;
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.6);
 }
 
 .service-btn[data-service="perfumes"].highlighted svg {
-    color: white !important;
+    color: white;
 }
 
 .service-btn.highlighted {
@@ -611,4 +618,101 @@ body {
         transform: scale(1.05);
         box-shadow: 0 0 30px rgba(220, 38, 38, 0.8);
     }
+}
+
+
+/* Admin Panel */
+
+.admin-panel {
+    display: none;
+    background: #ffffff;
+    border: 2px solid #dc2626;
+    border-radius: 12px;
+    margin: 20px;
+    padding: 16px;
+    position: relative;
+    z-index: 6;
+}
+
+.admin-panel.active {
+    display: block;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.admin-actions button,
+.admin-actions .file-btn {
+    background: linear-gradient(45deg, #000000, #1a1a1a);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.admin-actions button:hover,
+.admin-actions .file-btn:hover {
+    background: linear-gradient(45deg, #dc2626, #ef4444);
+}
+
+.admin-table-wrap {
+    overflow: auto;
+    max-height: 60vh;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.admin-table th,
+.admin-table td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.admin-table input,
+.admin-table textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 13px;
+    background: #f9fafb;
+}
+
+.admin-table textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+
+.admin-table .row-del {
+    background: #fff;
+    color: #dc2626;
+    border: 1px solid #dc2626;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.admin-table .row-del:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+.hint {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #6b7280;
 }
