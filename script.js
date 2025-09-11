@@ -249,19 +249,6 @@ function setupEntertainmentButtons() {
                     mensaje = "Hola estoy interesado en comprar cuenta de Duolingo Plus"
                     break
                 case "gemini":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Gemini Premium"
-                    break
-                case "hotgo":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Hot Go"
-                    break
-                case "xxx":
-                    mensaje = "Hola estoy interesado en contenido de entretenimiento adulto"
-                    break
-                case "pornhub":
-                    mensaje = "Hola estoy interesado en comprar cuenta de PornHub Premium"
-                    break
-                default:
-                    mensaje = `Hola estoy interesado en comprar cuenta de ${serviceName}`
             }
 
             const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
