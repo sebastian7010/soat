@@ -3,6 +3,7 @@
    Si en realidad se llama "perfumes", cámbiala a "./perfumes/". */
 const IMAGES_DIR = "./perfumes.webp/";
 const LS_KEY = "perfumesData_v1";
+const COMMIT_URL = "/api/commit"; // ⬅️ antes faltaba y rompía el guardado
 /* ========================= */
 
 /* Util: resolver ruta de imagen según si es archivo, ruta o URL */
@@ -111,232 +112,236 @@ async function loadPerfumes() {
                     const imgSrc = resolveImageSrc(perfume.imagen);
 
                     card.innerHTML = `
-                <img src="${imgSrc}" alt="${perfume.nombre}">
-                <h3>${perfume.nombre}</h3>
-                <div class="price">$${perfume.precio}</div>
-                ${perfume.descripcion ? `<p style="font-size:12px;color:#374151;margin-top:6px;">${perfume.descripcion}</p>` : ""}
-            `
+        <img src="${imgSrc}" alt="${perfume.nombre}">
+        <h3>${perfume.nombre}</h3>
+        <div class="price">$${perfume.precio}</div>
+        ${perfume.descripcion ? `<p style="font-size:12px;color:#374151;margin-top:6px;">${perfume.descripcion}</p>` : ""}
+      `
 
-            card.addEventListener("click", () => {
-                const mensaje = `Hola quiero comprar ${perfume.nombre}`
-                const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-                window.open(whatsappUrl, "_blank")
-            })
+      card.addEventListener("click", () => {
+        const mensaje = `Hola quiero comprar ${perfume.nombre}`
+        const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
+        window.open(whatsappUrl, "_blank")
+      })
 
-            grid.appendChild(card)
-        })
-    } catch (error) {
-        console.error("Error cargando perfumes:", error)
-    }
+      grid.appendChild(card)
+    })
+  } catch (error) {
+    console.error("Error cargando perfumes:", error)
+  }
 }
 
 // Manejar clicks en botones de servicios
 function setupServiceButtons() {
-    const buttons = document.querySelectorAll(".service-btn")
-    const perfumesSection = document.getElementById("perfumes-section")
-    const entretenimientoSection = document.getElementById("entretenimiento-section")
-    const smarttvSection = document.getElementById("smarttv-section")
+  const buttons = document.querySelectorAll(".service-btn")
+  const perfumesSection = document.getElementById("perfumes-section")
+  const entretenimientoSection = document.getElementById("entretenimiento-section")
+  const smarttvSection = document.getElementById("smarttv-section")
 
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const service = button.getAttribute("data-service")
-            let mensaje = ""
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const service = button.getAttribute("data-service")
+      let mensaje = ""
 
-            perfumesSection.classList.remove("active")
-            entretenimientoSection.classList.remove("active")
-            smarttvSection.classList.remove("active")
+      perfumesSection.classList.remove("active")
+      entretenimientoSection.classList.remove("active")
+      smarttvSection.classList.remove("active")
 
-            switch (service) {
-                case "soat":
-                    mensaje = "Estoy interesado en renovar mi SOAT"
-                    break
-                case "entretenimiento":
-                    entretenimientoSection.classList.add("active")
-                    entretenimientoSection.scrollIntoView({ behavior: "smooth" })
-                    return
-                case "tramites":
-                    mensaje = "Hola estoy interesado en resolver mis trámites de tránsito"
-                    break
-                case "smarttv":
-                    smarttvSection.classList.add("active")
-                    smarttvSection.scrollIntoView({ behavior: "smooth" })
-                    return
-                case "polizas":
-                    mensaje =
-                        "Hola quiero hacer la póliza de (seguro todo riesgo para vehículo - seguros de viaje - seguros de vida - seguros de hogar)"
-                    break
-                case "perfumes":
-                    // Mostrar sección de perfumes
-                    perfumesSection.classList.add("active")
-                    perfumesSection.scrollIntoView({ behavior: "smooth" })
-                    return
-                case "recargas":
-                    mensaje = "Hola estoy interesado en hacer recarga de mi celular"
-                    break
-            }
+      switch (service) {
+        case "soat":
+          mensaje = "Estoy interesado en renovar mi SOAT"
+          break
+        case "entretenimiento":
+          entretenimientoSection.classList.add("active")
+          entretenimientoSection.scrollIntoView({ behavior: "smooth" })
+          return
+        case "tramites":
+          mensaje = "Hola estoy interesado en resolver mis trámites de tránsito"
+          break
+        case "smarttv":
+          smarttvSection.classList.add("active")
+          smarttvSection.scrollIntoView({ behavior: "smooth" })
+          return
+        case "polizas":
+          mensaje =
+            "Hola quiero hacer la póliza de (seguro todo riesgo para vehículo - seguros de viaje - seguros de vida - seguros de hogar)"
+          break
+        case "perfumes":
+          // Mostrar sección de perfumes
+          perfumesSection.classList.add("active")
+          perfumesSection.scrollIntoView({ behavior: "smooth" })
+          return
+        case "recargas":
+          mensaje = "Hola estoy interesado en hacer recarga de mi celular"
+          break
+      }
 
-            if (mensaje) {
-                const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-                window.open(whatsappUrl, "_blank")
-            }
-        })
+      if (mensaje) {
+        const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
+        window.open(whatsappUrl, "_blank")
+      }
     })
+  })
 }
 
 // Manejar clicks en botones de entretenimiento
 function setupEntertainmentButtons() {
-    const entertainmentCards = document.querySelectorAll(".entertainment-card")
+  const entertainmentCards = document.querySelectorAll(".entertainment-card")
 
-    entertainmentCards.forEach((card) => {
-        card.addEventListener("click", () => {
-            const service = card.getAttribute("data-service")
-            const serviceName = card.querySelector("h3").textContent
-            let mensaje = ""
+  entertainmentCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const service = card.getAttribute("data-service")
+      const serviceName = card.querySelector("h3").textContent
+      let mensaje = ""
 
-            switch (service) {
-                case "netflix":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Netflix"
-                    break
-                case "disney":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Disney+"
-                    break
-                case "amazon":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Amazon Prime"
-                    break
-                case "star":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Star+"
-                    break
-                case "hbo":
-                    mensaje = "Hola estoy interesado en comprar cuenta de HBO Max"
-                    break
-                case "win":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Win+"
-                    break
-                case "youtube":
-                    mensaje = "Hola estoy interesado en comprar cuenta de YouTube Premium"
-                    break
-                case "spotify":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Spotify Premium"
-                    break
-                case "paramount":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Paramount+"
-                    break
-                case "plex":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Plex"
-                    break
-                case "iptv":
-                    mensaje = "Hola estoy interesado en el servicio de IPTV"
-                    break
-                case "crunchyroll":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Crunchyroll"
-                    break
-                case "vix":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Vix+"
-                    break
-                case "directv":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Directv Go"
-                    break
-                case "chatgpt":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Chat GPT Premium"
-                    break
-                case "canva":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Canva Pro"
-                    break
-                case "capcut":
-                    mensaje = "Hola estoy interesado en comprar cuenta de CapCut Pro"
-                    break
-                case "duolingo":
-                    mensaje = "Hola estoy interesado en comprar cuenta de Duolingo Plus"
-                    break
-                case "gemini":
-            }
+      switch (service) {
+        case "netflix":
+          mensaje = "Hola estoy interesado en comprar cuenta de Netflix"
+          break
+        case "disney":
+          mensaje = "Hola estoy interesado en comprar cuenta de Disney+"
+          break
+        case "amazon":
+          mensaje = "Hola estoy interesado en comprar cuenta de Amazon Prime"
+          break
+        case "star":
+          mensaje = "Hola estoy interesado en comprar cuenta de Star+"
+          break
+        case "hbo":
+          mensaje = "Hola estoy interesado en comprar cuenta de HBO Max"
+          break
+        case "win":
+          mensaje = "Hola estoy interesado en comprar cuenta de Win+"
+          break
+        case "youtube":
+          mensaje = "Hola estoy interesado en comprar cuenta de YouTube Premium"
+          break
+        case "spotify":
+          mensaje = "Hola estoy interesado en comprar cuenta de Spotify Premium"
+          break
+        case "paramount":
+          mensaje = "Hola estoy interesado en comprar cuenta de Paramount+"
+          break
+        case "plex":
+          mensaje = "Hola estoy interesado en comprar cuenta de Plex"
+          break
+        case "iptv":
+          mensaje = "Hola estoy interesado en el servicio de IPTV"
+          break
+        case "crunchyroll":
+          mensaje = "Hola estoy interesado en comprar cuenta de Crunchyroll"
+          break
+        case "vix":
+          mensaje = "Hola estoy interesado en comprar cuenta de Vix+"
+          break
+        case "directv":
+          mensaje = "Hola estoy interesado en comprar cuenta de Directv Go"
+          break
+        case "chatgpt":
+          mensaje = "Hola estoy interesado en comprar cuenta de ChatGPT Premium"
+          break
+        case "canva":
+          mensaje = "Hola estoy interesado en comprar cuenta de Canva Pro"
+          break
+        case "capcut":
+          mensaje = "Hola estoy interesado en comprar cuenta de CapCut Pro"
+          break
+        case "duolingo":
+          mensaje = "Hola estoy interesado en comprar cuenta de Duolingo Plus"
+          break
+        case "gemini":
+          mensaje = "Hola estoy interesado en comprar cuenta de Google Gemini Advanced"
+          break
+        default:
+          mensaje = `Hola estoy interesado en ${serviceName}`
+      }
 
-            const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-            window.open(whatsappUrl, "_blank")
-        })
+      const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
+      window.open(whatsappUrl, "_blank")
     })
+  })
 }
 
 function setupSmartTVButtons() {
-    const smarttvCards = document.querySelectorAll(".smarttv-card")
+  const smarttvCards = document.querySelectorAll(".smarttv-card")
 
-    smarttvCards.forEach((card) => {
-        card.addEventListener("click", () => {
-            const product = card.getAttribute("data-product")
-            const productName = card.querySelector("h3").textContent
-            const mensaje = `Hola quiero comprar ${productName} para convertir mi TV a Smart TV`
-            const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-            window.open(whatsappUrl, "_blank")
-        })
+  smarttvCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const product = card.getAttribute("data-product")
+      const productName = card.querySelector("h3").textContent
+      const mensaje = `Hola quiero comprar ${productName} para convertir mi TV a Smart TV`
+      const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
+      window.open(whatsappUrl, "_blank")
     })
+  })
 }
 
 // Manejar clicks en botones de navegación
 function setupNavButtons() {
-    const serviciosBtn = document.getElementById("servicios-btn")
-    const productosBtn = document.getElementById("productos-btn")
+  const serviciosBtn = document.getElementById("servicios-btn")
+  const productosBtn = document.getElementById("productos-btn")
 
-    if (!serviciosBtn || !productosBtn) {
-        console.error("Navigation buttons not found")
-        return
-    }
+  if (!serviciosBtn || !productosBtn) {
+    console.error("Navigation buttons not found")
+    return
+  }
 
-    // Botones de servicios: SOAT, entretenimiento, trámites, recargas
-    const serviciosButtons = ["soat", "entretenimiento", "tramites", "recargas"]
+  // Botones de servicios: SOAT, entretenimiento, trámites, recargas
+  const serviciosButtons = ["soat", "entretenimiento", "tramites", "recargas"]
 
-    // Botones de productos: smarttv, perfumes, polizas
-    const productosButtons = ["smarttv", "perfumes", "polizas"]
+  // Botones de productos: smarttv, perfumes, polizas
+  const productosButtons = ["smarttv", "perfumes", "polizas"]
 
-    serviciosBtn.addEventListener("click", () => {
-        // Remover clase active de todos los nav buttons
-        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
-        // Agregar clase active al botón clickeado
-        serviciosBtn.classList.add("active")
+  serviciosBtn.addEventListener("click", () => {
+    // Remover clase active de todos los nav buttons
+    document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
+    // Agregar clase active al botón clickeado
+    serviciosBtn.classList.add("active")
 
-        // Remover highlight de todos los botones
-        document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
+    // Remover highlight de todos los botones
+    document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
 
-        // Agregar highlight a botones de servicios
-        serviciosButtons.forEach((service) => {
-            const button = document.querySelector(`[data-service="${service}"]`)
-            if (button) {
-                button.classList.add("highlighted")
-            }
-        })
+    // Agregar highlight a botones de servicios
+    serviciosButtons.forEach((service) => {
+      const button = document.querySelector(`[data-service="${service}"]`)
+      if (button) {
+        button.classList.add("highlighted")
+      }
     })
+  })
 
-    productosBtn.addEventListener("click", () => {
-        // Remover clase active de todos los nav buttons
-        document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
-        // Agregar clase active al botón clickeado
-        productosBtn.classList.add("active")
+  productosBtn.addEventListener("click", () => {
+    // Remover clase active de todos los nav buttons
+    document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
+    // Agregar clase active al botón clickeado
+    productosBtn.classList.add("active")
 
-        // Remover highlight de todos los botones
-        document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
+    // Remover highlight de todos los botones
+    document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
 
-        // Agregar highlight a botones de productos
-        productosButtons.forEach((product) => {
-            const button = document.querySelector(`[data-service="${product}"]`)
-            if (button) {
-                button.classList.add("highlighted")
-            }
-        })
+    // Agregar highlight a botones de productos
+    productosButtons.forEach((product) => {
+      const button = document.querySelector(`[data-service="${product}"]`)
+      if (button) {
+        button.classList.add("highlighted")
+      }
     })
+  })
 }
 
 // Animación de entrada para los botones
 function animateButtons() {
-    const buttons = document.querySelectorAll(".service-btn")
-    buttons.forEach((button, index) => {
-        button.style.opacity = "0"
-        button.style.transform = "translateY(50px)"
+  const buttons = document.querySelectorAll(".service-btn")
+  buttons.forEach((button, index) => {
+    button.style.opacity = "0"
+    button.style.transform = "translateY(50px)"
 
-        setTimeout(() => {
-            button.style.transition = "all 0.6s ease"
-            button.style.opacity = "1"
-            button.style.transform = "translateY(0)"
-        }, index * 100)
-    })
+    setTimeout(() => {
+      button.style.transition = "all 0.6s ease"
+      button.style.opacity = "1"
+      button.style.transform = "translateY(0)"
+    }, index * 100)
+  })
 }
 
 /* ================== ADMIN PANEL (nuevo) ================== */
@@ -344,33 +349,33 @@ let _adminClicks = 0;
 let _adminClicksTimer = null;
 
 function enableAdminTrigger() {
-    const logo = document.getElementById("admin-logo-trigger");
-    const panel = document.getElementById("admin-panel");
-    if (!logo || !panel) return;
+  const logo = document.getElementById("admin-logo-trigger");
+  const panel = document.getElementById("admin-panel");
+  if (!logo || !panel) return;
 
-    logo.addEventListener("click", async () => {
-        _adminClicks++;
-        clearTimeout(_adminClicksTimer);
-        _adminClicksTimer = setTimeout(() => { _adminClicks = 0; }, 1200);
+  logo.addEventListener("click", async () => {
+    _adminClicks++;
+    clearTimeout(_adminClicksTimer);
+    _adminClicksTimer = setTimeout(() => { _adminClicks = 0; }, 1200);
 
-        if (_adminClicks >= 5) {
-            _adminClicks = 0;
-            panel.classList.toggle("active");
-            if (panel.classList.contains("active")) {
-                renderAdminTable(await getPerfumesData());
-            }
-        }
-    });
+    if (_adminClicks >= 5) {
+      _adminClicks = 0;
+      panel.classList.toggle("active");
+      if (panel.classList.contains("active")) {
+        renderAdminTable(await getPerfumesData());
+      }
+    }
+  });
 }
 
 function renderAdminTable(perfumes) {
-    const tbody = document.getElementById("admin-tbody");
-    tbody.innerHTML = "";
+  const tbody = document.getElementById("admin-tbody");
+  tbody.innerHTML = "";
 
-    perfumes.forEach((p, idx) => {
-        const tr = document.createElement("tr");
+  perfumes.forEach((p, idx) => {
+    const tr = document.createElement("tr");
 
-        tr.innerHTML = `
+    tr.innerHTML = `
       <td>${idx + 1}</td>
       <td><input type="text" value="${escapeHtml(p.nombre)}" data-field="nombre"></td>
       <td><input type="text" value="${escapeHtml(p.precio)}" data-field="precio"></td>
@@ -379,134 +384,147 @@ function renderAdminTable(perfumes) {
       <td><button class="row-del">Eliminar</button></td>
     `;
 
-        tbody.appendChild(tr);
-    });
+    tbody.appendChild(tr);
+  });
 
-    bindAdminControls(perfumes);
+  bindAdminControls(perfumes);
 }
 
 function bindAdminControls(current) {
-    const tbody = document.getElementById("admin-tbody");
-    const btnAdd = document.getElementById("admin-add");
-    const btnSave = document.getElementById("admin-save");
-    const btnExport = document.getElementById("admin-export");
-    const inputImport = document.getElementById("admin-import");
+  const tbody = document.getElementById("admin-tbody");
+  const btnAdd = document.getElementById("admin-add");
+  const btnSave = document.getElementById("admin-save");
+  const btnExport = document.getElementById("admin-export");
+  const inputImport = document.getElementById("admin-import");
 
-    // Editar campos
-    tbody.addEventListener("input", (e) => {
-        const tr = e.target.closest("tr");
-        const index = [...tbody.children].indexOf(tr);
-        const field = e.target.getAttribute("data-field");
-        if (!field) return;
-        current[index][field] = e.target.value;
-    });
+  // Editar campos
+  tbody.addEventListener("input", (e) => {
+    const tr = e.target.closest("tr");
+    const index = [...tbody.children].indexOf(tr); // ⬅️ spread correcto
+    const field = e.target.getAttribute("data-field");
+    if (!field) return;
+    current[index][field] = e.target.value;
+  });
 
-    // Eliminar fila
-    tbody.addEventListener("click", (e) => {
-        if (e.target.classList.contains("row-del")) {
-            const tr = e.target.closest("tr");
-            const index = [...tbody.children].indexOf(tr);
-            current.splice(index, 1);
-            renderAdminTable(current);
-        }
-    });
-
-    // Agregar fila
-    btnAdd.onclick = () => {
-        current.push({ nombre: "", precio: "", descripcion: "", imagen: "" });
-        renderAdminTable(current);
-    };
-
-    // Guardar en git
-   btnSave.onclick = async () => {
-  try {
-    // current es tu array [{nombre, precio, descripcion, imagen}, ...]
-    const resp = await fetch("/api/commit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message: "Update perfumes.json desde Admin",
-        json: current
-      })
-    });
-
-    const data = await resp.json();
-    if (!resp.ok) {
-      console.error("Commit error:", data);
-      alert("No se pudo guardar en GitHub. Revisa la consola.");
-      return;
+  // Eliminar fila
+  tbody.addEventListener("click", (e) => {
+    if (e.target.classList.contains("row-del")) {
+      const tr = e.target.closest("tr");
+      const index = [...tbody.children].indexOf(tr); // ⬅️ spread correcto
+      current.splice(index, 1);
+      renderAdminTable(current);
     }
+  });
 
-    alert("Cambios guardados en el repositorio (commit hecho).");
-    // Opcional: recargar los perfumes
-    loadPerfumes();
-  } catch (e) {
-    console.error(e);
-    alert("Error inesperado al guardar en GitHub.");
-  }
-};
+  // Agregar fila
+  btnAdd.onclick = () => {
+    current.push({ nombre: "", precio: "", descripcion: "", imagen: "" });
+    renderAdminTable(current);
+  };
 
+  // Guardar: primero navegador, luego GitHub
+  btnSave.onclick = async () => {
+    try {
+      // 1) Guardar en navegador
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify(current));
+      } catch (e) {
+        console.warn("No se pudo guardar en localStorage:", e);
+      }
 
-    // Exportar JSON (descarga)
-    btnExport.onclick = () => {
-        const blob = new Blob([JSON.stringify(current, null, 2)], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.download = "perfumes.json";
-        a.href = url;
-        a.click();
-        URL.revokeObjectURL(url);
+      // 2) Intentar commit a GitHub (con debug)
+      const payload = {
+        message: "Update perfumes.json desde Admin",
+        json: current,
+        debug: true
+      };
+
+      const resp = await fetch(COMMIT_URL + "?debug=1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      // Evita “Unexpected end of JSON input”
+      const raw = await resp.text();
+      let data;
+      try { data = JSON.parse(raw); } catch { data = { raw }; }
+
+      console.log("Commit response:", resp.status, data);
+
+      if (!resp.ok) {
+        alert("Guardado en este navegador. No se pudo guardar en GitHub (" + resp.status + "). Revisa la consola.");
+        return;
+      }
+
+      alert("Guardado en este navegador y commit hecho en GitHub ✅");
+      loadPerfumes(); // refresca la grilla
+    } catch (e) {
+      console.error("Error al guardar:", e);
+      alert("Guardado en este navegador. Hubo un error inesperado al intentar GitHub.");
+    }
+  };
+
+  // Exportar JSON (descarga)
+  btnExport.onclick = () => {
+    const blob = new Blob([JSON.stringify(current, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.download = "perfumes.json";
+    a.href = url;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Importar JSON
+  inputImport.onchange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(String(reader.result));
+        if (!Array.isArray(data)) throw new Error("Formato inválido");
+        const norm = data.map(p => ({
+          nombre: p.nombre || "",
+          precio: p.precio || "",
+          descripcion: p.descripcion || "",
+          imagen: p.imagen || ""
+        }));
+        renderAdminTable(norm);
+        current.splice(0, current.length, ...norm);
+      } catch (err) {
+        alert("JSON inválido.");
+      }
     };
-
-    // Importar JSON
-    inputImport.onchange = (e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = () => {
-            try {
-                const data = JSON.parse(String(reader.result));
-                if (!Array.isArray(data)) throw new Error("Formato inválido");
-                const norm = data.map(p => ({
-                    nombre: p.nombre || "",
-                    precio: p.precio || "",
-                    descripcion: p.descripcion || "",
-                    imagen: p.imagen || ""
-                }));
-                renderAdminTable(norm);
-                current.splice(0, current.length, ...norm);
-            } catch (err) {
-                alert("JSON inválido.");
-            }
-        };
-        reader.readAsText(file);
-        e.target.value = "";
-    };
+    reader.readAsText(file);
+    e.target.value = "";
+  };
 }
 
 function escapeHtml(s) {
-    return String(s)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;");
+  return String(s)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 /* ================== INIT ================== */
 // Inicializar todo cuando cargue la página
 document.addEventListener("DOMContentLoaded", () => {
-    createParticles()
-    loadPerfumes()
-    setupServiceButtons()
-    setupEntertainmentButtons()
-    setupSmartTVButtons()
-    setupNavButtons()
-    animateButtons()
-    enableAdminTrigger() // activar panel admin oculto (5 clics al logo)
+  createParticles()
+  loadPerfumes()
+  setupServiceButtons()
+  setupEntertainmentButtons()
+  setupSmartTVButtons()
+  setupNavButtons()
+  animateButtons()
+  enableAdminTrigger() // activar panel admin oculto (5 clics al logo)
 })
 
 setInterval(() => {
-    const container = document.getElementById("particles")
-    container.innerHTML = ""
-    createParticles()
+  const container = document.getElementById("particles")
+  container.innerHTML = ""
+  createParticles()
 }, 8000)

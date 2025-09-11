@@ -1,0 +1,18 @@
+{
+  "message": "Test desde terminal",
+  "debug": true,
+  "json": [
+    {
+      "nombre": "Perfume Terminal",
+      "precio": "99999",
+      "descripcion": "Guardado con curl",
+      "imagen": "ejemplo.webp"
+    },
+    {
+      "nombre": "Otro Perfume",
+      "precio": "12345",
+      "descripcion": "Segundo item",
+      "imagen": "otro.webp"
+    }
+  ]
+}
