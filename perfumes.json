@@ -1,8 +1,8 @@
 [
   {
-    "nombre": "",
-    "precio": "",
-    "descripcion": "",
+    "nombre": "DSFDFD",
+    "precio": "345564",
+    "descripcion": "DGFHSFTHTYHT",
     "imagen": "Photoroom_000_20250910_020554.webp"
   },
   {
@@ -676,5 +676,23 @@
     "precio": "",
     "descripcion": "",
     "imagen": "Photoroom_112_20250910_020554.webp"
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
   }
 ]
