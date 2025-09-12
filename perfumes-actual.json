@@ -1,0 +1,19 @@
+[{
+        "nombre": "Perfume Prod 1",
+        "precio": "11111",
+        "descripcion": "Desde prod",
+        "imagen": "ejemplo.webp"
+    },
+    {
+        "nombre": "Perfume Prod 2",
+        "precio": "22222",
+        "descripcion": "Desde prod",
+        "imagen": "otro.webp"
+    },
+    {
+        "nombre": "",
+        "precio": "",
+        "descripcion": "",
+        "imagen": "otro.webp"
+    }
+]

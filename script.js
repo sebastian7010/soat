@@ -8,13 +8,10 @@ const LS_KEY = "perfumesData_v1";
    - En local: http://localhost:3001 (vercel dev)
    - En producción: cadena vacía (misma URL del deploy) */
 // usa siempre producción
-const API_BASE = 'https://soat-khaki-theta.vercel.app';
-
-// endpoint de commit (no toques lo demás)
+const API_BASE = 'https://soat-coral-five.vercel.app';
 const COMMIT_URL = `${API_BASE}/api/commit`;
+const RAW_URL = 'https://raw.githubusercontent.com/sebastian7010/soat/main/perfumes.json';
 
-// lectura global sigue desde RAW de GitHub (no cambia)
-const RAW_URL = 'https://raw.githubusercontent.com/sebastian7010/SOAT/main/perfumes.json';
 
 /* ========================= */
 
