@@ -3,7 +3,20 @@
    Si en realidad se llama "perfumes", cámbiala a "./perfumes/". */
 const IMAGES_DIR = "./perfumes.webp/";
 const LS_KEY = "perfumesData_v1";
-const COMMIT_URL = "/api/commit"; // ⬅️ antes faltaba y rompía el guardado
+
+/* Base de la API:
+   - En local: http://localhost:3001 (vercel dev)
+   - En producción: cadena vacía (misma URL del deploy) */
+const API_BASE =
+    (location.hostname === "localhost" || location.hostname === "127.0.0.1") ?
+    "http://localhost:3001" :
+    "";
+
+// Endpoint de commit a GitHub
+const COMMIT_URL = `${API_BASE}/api/commit`;
+
+// Lectura GLOBAL del JSON directamente del repo público (evita función serverless)
+const RAW_URL = "https://raw.githubusercontent.com/sebastian7010/SOAT/main/perfumes.json";
 /* ========================= */
 
 /* Util: resolver ruta de imagen según si es archivo, ruta o URL */
@@ -17,28 +30,37 @@ function resolveImageSrc(imgField) {
     return IMAGES_DIR + trimmed;
 }
 
-/* Cargar perfumes desde localStorage o desde perfumes.json */
+/* Cargar perfumes (GLOBAL) */
 async function getPerfumesData() {
+    // 1) Intento principal: leer SIEMPRE del RAW del repo (global)
+    try {
+        const resp = await fetch(`${RAW_URL}?ts=${Date.now()}`, { cache: "no-store" });
+        if (resp.ok) {
+            const data = await resp.json();
+            // Guardar copia local como respaldo offline
+            try { localStorage.setItem(LS_KEY, JSON.stringify(data)); } catch {}
+            return data.map(p => ({
+                nombre: p.nombre || "",
+                precio: p.precio || "",
+                descripcion: p.descripcion || "",
+                imagen: p.imagen || ""
+            }));
+        }
+    } catch (e) {
+        console.warn("Fallo lectura RAW, uso fallback local:", e);
+    }
+
+    // 2) Fallback: localStorage
     try {
         const cached = localStorage.getItem(LS_KEY);
         if (cached) return JSON.parse(cached);
-    } catch (e) {
-        console.warn("No se pudo leer localStorage:", e);
-    }
+    } catch {}
 
-    // Fallback: JSON del proyecto
+    // 3) Último recurso: archivo estático del build (puede estar desactualizado)
     try {
-        const resp = await fetch("perfumes.json");
-        const data = await resp.json();
-        // normaliza campos
-        return data.map(p => ({
-            nombre: p.nombre || "",
-            precio: p.precio || "",
-            descripcion: p.descripcion || "",
-            imagen: p.imagen || ""
-        }));
-    } catch (e) {
-        console.error("Error leyendo perfumes.json:", e);
+        const resp = await fetch("perfumes.json", { cache: "no-store" });
+        return await resp.json();
+    } catch {
         return [];
     }
 }
@@ -46,68 +68,68 @@ async function getPerfumesData() {
 /* ================== TU CÓDIGO EXISTENTE (conservado) ================== */
 // Crear partículas flotantes
 function createParticles() {
-    const container = document.getElementById("particles")
-    const particleCount = 15
+    const container = document.getElementById("particles");
+    const particleCount = 15;
 
     for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement("div")
-        particle.className = "particle"
+        const particle = document.createElement("div");
+        particle.className = "particle";
 
         // Tamaño aleatorio
-        const size = Math.random() * 6 + 2
-        particle.style.width = size + "px"
-        particle.style.height = size + "px"
+        const size = Math.random() * 6 + 2;
+        particle.style.width = size + "px";
+        particle.style.height = size + "px";
 
         // Dividir la pantalla en zonas para mejor distribución
-        const zone = i % 4
-        let left, top
+        const zone = i % 4;
+        let left, top;
 
         switch (zone) {
             case 0: // Cuadrante superior izquierdo
-                left = Math.random() * 25
-                top = Math.random() * 25
-                break
+                left = Math.random() * 25;
+                top = Math.random() * 25;
+                break;
             case 1: // Cuadrante superior derecho
-                left = 75 + Math.random() * 25
-                top = Math.random() * 25
-                break
+                left = 75 + Math.random() * 25;
+                top = Math.random() * 25;
+                break;
             case 2: // Cuadrante inferior izquierdo
-                left = Math.random() * 25
-                top = 75 + Math.random() * 25
-                break
+                left = Math.random() * 25;
+                top = 75 + Math.random() * 25;
+                break;
             case 3: // Cuadrante inferior derecho
-                left = 75 + Math.random() * 25
-                top = 75 + Math.random() * 25
-                break
+                left = 75 + Math.random() * 25;
+                top = 75 + Math.random() * 25;
+                break;
             default: // Partículas adicionales distribuidas aleatoriamente
-                left = Math.random() * 100
-                top = Math.random() * 100
+                left = Math.random() * 100;
+                top = Math.random() * 100;
         }
 
-        particle.style.left = left + "%"
-        particle.style.top = top + "%"
+        particle.style.left = left + "%";
+        particle.style.top = top + "%";
 
         // Duración de animación aleatoria
-        particle.style.animationDuration = Math.random() * 4 + 3 + "s"
-        particle.style.animationDelay = Math.random() * 2 + "s"
+        particle.style.animationDuration = Math.random() * 4 + 3 + "s";
+        particle.style.animationDelay = Math.random() * 2 + "s";
 
-        const colors = ["#6b7280", "#9ca3af", "#d1d5db", "#374151"]
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)]
+        const colors = ["#6b7280", "#9ca3af", "#d1d5db", "#374151"];
+        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
 
-        container.appendChild(particle)
+        container.appendChild(particle);
     }
 }
 
-/* === MODIFICADO: ahora usa getPerfumesData(), añade descripción y resuelve rutas === */
+/* === Usa getPerfumesData(), añade descripción y resuelve rutas === */
 async function loadPerfumes() {
     try {
         const perfumes = await getPerfumesData();
-        const grid = document.getElementById("perfumes-grid")
+        const grid = document.getElementById("perfumes-grid");
         grid.innerHTML = "";
 
         perfumes.forEach((perfume) => {
-                    const card = document.createElement("div")
-                    card.className = "perfume-card"
+                    const card = document.createElement("div");
+                    card.className = "perfume-card";
 
                     const imgSrc = resolveImageSrc(perfume.imagen);
 
@@ -116,232 +138,218 @@ async function loadPerfumes() {
         <h3>${perfume.nombre}</h3>
         <div class="price">$${perfume.precio}</div>
         ${perfume.descripcion ? `<p style="font-size:12px;color:#374151;margin-top:6px;">${perfume.descripcion}</p>` : ""}
-      `
+      `;
 
       card.addEventListener("click", () => {
-        const mensaje = `Hola quiero comprar ${perfume.nombre}`
-        const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-        window.open(whatsappUrl, "_blank")
-      })
+        const mensaje = `Hola quiero comprar ${perfume.nombre}`;
+        const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+        window.open(whatsappUrl, "_blank");
+      });
 
-      grid.appendChild(card)
-    })
+      grid.appendChild(card);
+    });
   } catch (error) {
-    console.error("Error cargando perfumes:", error)
+    console.error("Error cargando perfumes:", error);
   }
 }
 
 // Manejar clicks en botones de servicios
 function setupServiceButtons() {
-  const buttons = document.querySelectorAll(".service-btn")
-  const perfumesSection = document.getElementById("perfumes-section")
-  const entretenimientoSection = document.getElementById("entretenimiento-section")
-  const smarttvSection = document.getElementById("smarttv-section")
+  const buttons = document.querySelectorAll(".service-btn");
+  const perfumesSection = document.getElementById("perfumes-section");
+  const entretenimientoSection = document.getElementById("entretenimiento-section");
+  const smarttvSection = document.getElementById("smarttv-section");
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const service = button.getAttribute("data-service")
-      let mensaje = ""
+      const service = button.getAttribute("data-service");
+      let mensaje = "";
 
-      perfumesSection.classList.remove("active")
-      entretenimientoSection.classList.remove("active")
-      smarttvSection.classList.remove("active")
+      perfumesSection.classList.remove("active");
+      entretenimientoSection.classList.remove("active");
+      smarttvSection.classList.remove("active");
 
       switch (service) {
         case "soat":
-          mensaje = "Estoy interesado en renovar mi SOAT"
-          break
+          mensaje = "Estoy interesado en renovar mi SOAT";
+          break;
         case "entretenimiento":
-          entretenimientoSection.classList.add("active")
-          entretenimientoSection.scrollIntoView({ behavior: "smooth" })
-          return
+          entretenimientoSection.classList.add("active");
+          entretenimientoSection.scrollIntoView({ behavior: "smooth" });
+          return;
         case "tramites":
-          mensaje = "Hola estoy interesado en resolver mis trámites de tránsito"
-          break
+          mensaje = "Hola estoy interesado en resolver mis trámites de tránsito";
+          break;
         case "smarttv":
-          smarttvSection.classList.add("active")
-          smarttvSection.scrollIntoView({ behavior: "smooth" })
-          return
+          smarttvSection.classList.add("active");
+          smarttvSection.scrollIntoView({ behavior: "smooth" });
+          return;
         case "polizas":
-          mensaje =
-            "Hola quiero hacer la póliza de (seguro todo riesgo para vehículo - seguros de viaje - seguros de vida - seguros de hogar)"
-          break
+          mensaje = "Hola quiero hacer la póliza de (seguro todo riesgo para vehículo - seguros de viaje - seguros de vida - seguros de hogar)";
+          break;
         case "perfumes":
           // Mostrar sección de perfumes
-          perfumesSection.classList.add("active")
-          perfumesSection.scrollIntoView({ behavior: "smooth" })
-          return
+          perfumesSection.classList.add("active");
+          perfumesSection.scrollIntoView({ behavior: "smooth" });
+          return;
         case "recargas":
-          mensaje = "Hola estoy interesado en hacer recarga de mi celular"
-          break
+          mensaje = "Hola estoy interesado en hacer recarga de mi celular";
+          break;
       }
 
       if (mensaje) {
-        const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-        window.open(whatsappUrl, "_blank")
+        const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+        window.open(whatsappUrl, "_blank");
       }
-    })
-  })
+    });
+  });
 }
 
 // Manejar clicks en botones de entretenimiento
 function setupEntertainmentButtons() {
-  const entertainmentCards = document.querySelectorAll(".entertainment-card")
+  const entertainmentCards = document.querySelectorAll(".entertainment-card");
 
   entertainmentCards.forEach((card) => {
     card.addEventListener("click", () => {
-      const service = card.getAttribute("data-service")
-      const serviceName = card.querySelector("h3").textContent
-      let mensaje = ""
+      const service = card.getAttribute("data-service");
+      const serviceName = card.querySelector("h3").textContent;
+      let mensaje = "";
 
       switch (service) {
         case "netflix":
-          mensaje = "Hola estoy interesado en comprar cuenta de Netflix"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Netflix";
+          break;
         case "disney":
-          mensaje = "Hola estoy interesado en comprar cuenta de Disney+"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Disney+";
+          break;
         case "amazon":
-          mensaje = "Hola estoy interesado en comprar cuenta de Amazon Prime"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Amazon Prime";
+          break;
         case "star":
-          mensaje = "Hola estoy interesado en comprar cuenta de Star+"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Star+";
+          break;
         case "hbo":
-          mensaje = "Hola estoy interesado en comprar cuenta de HBO Max"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de HBO Max";
+          break;
         case "win":
-          mensaje = "Hola estoy interesado en comprar cuenta de Win+"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Win+";
+          break;
         case "youtube":
-          mensaje = "Hola estoy interesado en comprar cuenta de YouTube Premium"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de YouTube Premium";
+          break;
         case "spotify":
-          mensaje = "Hola estoy interesado en comprar cuenta de Spotify Premium"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Spotify Premium";
+          break;
         case "paramount":
-          mensaje = "Hola estoy interesado en comprar cuenta de Paramount+"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Paramount+";
+          break;
         case "plex":
-          mensaje = "Hola estoy interesado en comprar cuenta de Plex"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Plex";
+          break;
         case "iptv":
-          mensaje = "Hola estoy interesado en el servicio de IPTV"
-          break
+          mensaje = "Hola estoy interesado en el servicio de IPTV";
+          break;
         case "crunchyroll":
-          mensaje = "Hola estoy interesado en comprar cuenta de Crunchyroll"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Crunchyroll";
+          break;
         case "vix":
-          mensaje = "Hola estoy interesado en comprar cuenta de Vix+"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Vix+";
+          break;
         case "directv":
-          mensaje = "Hola estoy interesado en comprar cuenta de Directv Go"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Directv Go";
+          break;
         case "chatgpt":
-          mensaje = "Hola estoy interesado en comprar cuenta de ChatGPT Premium"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de ChatGPT Premium";
+          break;
         case "canva":
-          mensaje = "Hola estoy interesado en comprar cuenta de Canva Pro"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Canva Pro";
+          break;
         case "capcut":
-          mensaje = "Hola estoy interesado en comprar cuenta de CapCut Pro"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de CapCut Pro";
+          break;
         case "duolingo":
-          mensaje = "Hola estoy interesado en comprar cuenta de Duolingo Plus"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Duolingo Plus";
+          break;
         case "gemini":
-          mensaje = "Hola estoy interesado en comprar cuenta de Google Gemini Advanced"
-          break
+          mensaje = "Hola estoy interesado en comprar cuenta de Google Gemini Advanced";
+          break;
         default:
-          mensaje = `Hola estoy interesado en ${serviceName}`
+          mensaje = `Hola estoy interesado en ${serviceName}`;
       }
 
-      const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-      window.open(whatsappUrl, "_blank")
-    })
-  })
+      const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+      window.open(whatsappUrl, "_blank");
+    });
+  });
 }
 
 function setupSmartTVButtons() {
-  const smarttvCards = document.querySelectorAll(".smarttv-card")
+  const smarttvCards = document.querySelectorAll(".smarttv-card");
 
   smarttvCards.forEach((card) => {
     card.addEventListener("click", () => {
-      const product = card.getAttribute("data-product")
-      const productName = card.querySelector("h3").textContent
-      const mensaje = `Hola quiero comprar ${productName} para convertir mi TV a Smart TV`
-      const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`
-      window.open(whatsappUrl, "_blank")
-    })
-  })
+      const productName = card.querySelector("h3").textContent;
+      const mensaje = `Hola quiero comprar ${productName} para convertir mi TV a Smart TV`;
+      const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+      window.open(whatsappUrl, "_blank");
+    });
+  });
 }
 
 // Manejar clicks en botones de navegación
 function setupNavButtons() {
-  const serviciosBtn = document.getElementById("servicios-btn")
-  const productosBtn = document.getElementById("productos-btn")
+  const serviciosBtn = document.getElementById("servicios-btn");
+  const productosBtn = document.getElementById("productos-btn");
 
   if (!serviciosBtn || !productosBtn) {
-    console.error("Navigation buttons not found")
-    return
+    console.error("Navigation buttons not found");
+    return;
   }
 
   // Botones de servicios: SOAT, entretenimiento, trámites, recargas
-  const serviciosButtons = ["soat", "entretenimiento", "tramites", "recargas"]
+  const serviciosButtons = ["soat", "entretenimiento", "tramites", "recargas"];
 
   // Botones de productos: smarttv, perfumes, polizas
-  const productosButtons = ["smarttv", "perfumes", "polizas"]
+  const productosButtons = ["smarttv", "perfumes", "polizas"];
 
   serviciosBtn.addEventListener("click", () => {
-    // Remover clase active de todos los nav buttons
-    document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
-    // Agregar clase active al botón clickeado
-    serviciosBtn.classList.add("active")
+    document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
+    serviciosBtn.classList.add("active");
 
-    // Remover highlight de todos los botones
-    document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
+    document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"));
 
-    // Agregar highlight a botones de servicios
     serviciosButtons.forEach((service) => {
-      const button = document.querySelector(`[data-service="${service}"]`)
-      if (button) {
-        button.classList.add("highlighted")
-      }
-    })
-  })
+      const button = document.querySelector(`[data-service="${service}"]`);
+      if (button) button.classList.add("highlighted");
+    });
+  });
 
   productosBtn.addEventListener("click", () => {
-    // Remover clase active de todos los nav buttons
-    document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"))
-    // Agregar clase active al botón clickeado
-    productosBtn.classList.add("active")
+    document.querySelectorAll(".nav-btn").forEach((btn) => btn.classList.remove("active"));
+    productosBtn.classList.add("active");
 
-    // Remover highlight de todos los botones
-    document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"))
+    document.querySelectorAll(".service-btn").forEach((btn) => btn.classList.remove("highlighted"));
 
-    // Agregar highlight a botones de productos
     productosButtons.forEach((product) => {
-      const button = document.querySelector(`[data-service="${product}"]`)
-      if (button) {
-        button.classList.add("highlighted")
-      }
-    })
-  })
+      const button = document.querySelector(`[data-service="${product}"]`);
+      if (button) button.classList.add("highlighted");
+    });
+  });
 }
 
 // Animación de entrada para los botones
 function animateButtons() {
-  const buttons = document.querySelectorAll(".service-btn")
+  const buttons = document.querySelectorAll(".service-btn");
   buttons.forEach((button, index) => {
-    button.style.opacity = "0"
-    button.style.transform = "translateY(50px)"
+    button.style.opacity = "0";
+    button.style.transform = "translateY(50px)";
 
     setTimeout(() => {
-      button.style.transition = "all 0.6s ease"
-      button.style.opacity = "1"
-      button.style.transform = "translateY(0)"
-    }, index * 100)
-  })
+      button.style.transition = "all 0.6s ease";
+      button.style.opacity = "1";
+      button.style.transform = "translateY(0)";
+    }, index * 100);
+  });
 }
 
 /* ================== ADMIN PANEL (nuevo) ================== */
@@ -400,7 +408,7 @@ function bindAdminControls(current) {
   // Editar campos
   tbody.addEventListener("input", (e) => {
     const tr = e.target.closest("tr");
-    const index = [...tbody.children].indexOf(tr); // ⬅️ spread correcto
+    const index = [...tbody.children].indexOf(tr); // spread correcto
     const field = e.target.getAttribute("data-field");
     if (!field) return;
     current[index][field] = e.target.value;
@@ -410,7 +418,7 @@ function bindAdminControls(current) {
   tbody.addEventListener("click", (e) => {
     if (e.target.classList.contains("row-del")) {
       const tr = e.target.closest("tr");
-      const index = [...tbody.children].indexOf(tr); // ⬅️ spread correcto
+      const index = [...tbody.children].indexOf(tr); // spread correcto
       current.splice(index, 1);
       renderAdminTable(current);
     }
@@ -425,14 +433,14 @@ function bindAdminControls(current) {
   // Guardar: primero navegador, luego GitHub
   btnSave.onclick = async () => {
     try {
-      // 1) Guardar en navegador
+      // 1) Guardar en navegador (respaldo)
       try {
         localStorage.setItem(LS_KEY, JSON.stringify(current));
       } catch (e) {
         console.warn("No se pudo guardar en localStorage:", e);
       }
 
-      // 2) Intentar commit a GitHub (con debug)
+      // 2) Commit a GitHub
       const payload = {
         message: "Update perfumes.json desde Admin",
         json: current,
@@ -458,7 +466,7 @@ function bindAdminControls(current) {
       }
 
       alert("Guardado en este navegador y commit hecho en GitHub ✅");
-      loadPerfumes(); // refresca la grilla
+      loadPerfumes(); // refresca grilla global leyendo desde RAW
     } catch (e) {
       console.error("Error al guardar:", e);
       alert("Guardado en este navegador. Hubo un error inesperado al intentar GitHub.");
@@ -513,18 +521,18 @@ function escapeHtml(s) {
 /* ================== INIT ================== */
 // Inicializar todo cuando cargue la página
 document.addEventListener("DOMContentLoaded", () => {
-  createParticles()
-  loadPerfumes()
-  setupServiceButtons()
-  setupEntertainmentButtons()
-  setupSmartTVButtons()
-  setupNavButtons()
-  animateButtons()
-  enableAdminTrigger() // activar panel admin oculto (5 clics al logo)
-})
+  createParticles();
+  loadPerfumes();
+  setupServiceButtons();
+  setupEntertainmentButtons();
+  setupSmartTVButtons();
+  setupNavButtons();
+  animateButtons();
+  enableAdminTrigger(); // activar panel admin oculto (5 clics al logo)
+});
 
 setInterval(() => {
-  const container = document.getElementById("particles")
-  container.innerHTML = ""
-  createParticles()
-}, 8000)
+  const container = document.getElementById("particles");
+  container.innerHTML = "";
+  createParticles();
+}, 8000);
