@@ -7,16 +7,15 @@ const LS_KEY = "perfumesData_v1";
 /* Base de la API:
    - En local: http://localhost:3001 (vercel dev)
    - En producción: cadena vacía (misma URL del deploy) */
-const API_BASE =
-    (location.hostname === "localhost" || location.hostname === "127.0.0.1") ?
-    "http://localhost:3001" :
-    "";
+// usa siempre producción
+const API_BASE = 'https://soat-khaki-theta.vercel.app';
 
-// Endpoint de commit a GitHub
+// endpoint de commit (no toques lo demás)
 const COMMIT_URL = `${API_BASE}/api/commit`;
 
-// Lectura GLOBAL del JSON directamente del repo público (evita función serverless)
-const RAW_URL = "https://raw.githubusercontent.com/sebastian7010/SOAT/main/perfumes.json";
+// lectura global sigue desde RAW de GitHub (no cambia)
+const RAW_URL = 'https://raw.githubusercontent.com/sebastian7010/SOAT/main/perfumes.json';
+
 /* ========================= */
 
 /* Util: resolver ruta de imagen según si es archivo, ruta o URL */
