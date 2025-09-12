@@ -1,8 +1,38 @@
 [
   {
     "nombre": "Perfume Bash",
-    "precio": "99999",
+    "precio": "888888",
     "descripcion": "Commit desde Bash",
     "imagen": "ejemplo.webp"
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
+  },
+  {
+    "nombre": "",
+    "precio": "",
+    "descripcion": "",
+    "imagen": ""
   }
 ]
