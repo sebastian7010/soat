@@ -105,18 +105,21 @@
             </button>
 
             <button class="service-btn" data-service="polizas">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12,2A3,3 0 0,1 15,5V6H16A1,1 0 0,1 17,7V8H20A1,1 0 0,1 21,9V10A1,1 0 0,1 20,11H19V20A2,2 0 0,1 17,22H7A2,2 0 0,1 5,20V11H4A1,1 0 0,1 3,10V9A1,1 0 0,1 4,8H7V7A1,1 0 0,1 8,6H9V5A3,3 0 0,1 12,2M12,4A1,1 0 0,0 11,5V6H13V5A1,1 0 0,0 12,4Z"/>
-                </svg>
-                <span>Pólizas de Seguro</span>
-            </button>
+    <img src="./assets/todoriesgo.jpg" alt="Pólizas de Seguro" 
+         width="50" height="50" 
+         style="object-fit: cover; border-radius: 8px; margin-right: 8px;">
+    <span>Pólizas de Seguro</span>
+</button>
+
+
 
             <button class="service-btn" data-service="perfumes">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12,2A3,3 0 0,1 15,5V6H16A1,1 0 0,1 17,7V8H20A1,1 0 0,1 21,9V10A1,1 0 0,1 20,11H19V20A2,2 0 0,1 17,22H7A2,2 0 0,1 5,20V11H4A1,1 0 0,1 3,10V9A1,1 0 0,1 4,8H7V7A1,1 0 0,1 8,6H9V5A3,3 0 0,1 12,2M12,4A1,1 0 0,0 11,5V6H13V5A1,1 0 0,0 12,4Z"/>
-                </svg>
-                <span>Perfumes</span>
-            </button>
+    <img src="./assets/perfume.jpg" alt="Perfumes"
+         width="50" height="50"
+         style="object-fit: cover; border-radius: 8px; margin-right: 8px;">
+    <span>Perfumes</span>
+</button>
+
 
             <button class="service-btn" data-service="recargas">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -225,37 +228,170 @@
                 <h3>TV Magis Pro</h3>
                 <p>Cuenta Plus</p>
             </div>
-
-
-
-
-
-
         </div>
     </section>
+
+    <!-- Sección de trámites de tránsito -->
+    <section class="tramites-section" id="tramites-section">
+        <h2>Trámites de Tránsito</h2>
+        <div class="tramites-grid" id="tramites-grid">
+            <div class="tramite-card" data-tramite="impuesto">
+                <h3>Pago de impuesto</h3>
+                <p>Elige esta opción si deseas pagar el impuesto vehicular.</p>
+            </div>
+            <div class="tramite-card" data-tramite="semaforizacion">
+                <h3>Pago de semaforización</h3>
+                <p>Pagos relacionados con la tasa de semaforización.</p>
+            </div>
+            <div class="tramite-card" data-tramite="fotomultas">
+                <h3>Pago de foto multas</h3>
+                <p>Consulta y paga tus fotomultas.</p>
+            </div>
+            <div class="tramite-card" data-tramite="otros">
+                <h3>Otros</h3>
+                <p>Otro trámite de tránsito (especifícalo por WhatsApp).</p>
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- Sección de smarttv -->
     <section class="smarttv-section" id="smarttv-section">
         <h2>Convierte tu TV en Smart TV</h2>
         <div class="smarttv-grid" id="smarttv-grid">
+
+            <!-- TV Stick -->
+            <div class="smarttv-card" data-product="tvstik">
+                <img src="./assets/tvstik.webp" alt="TV Stick" width="100" height="100" onerror="this.src='./assets/tvstik.png'">
+                <h3>TV Stick</h3>
+                <p>Dispositivo básico</p>
+                <div class="price">$45.000</div>
+            </div>
+
+            <!-- WatchOn -->
             <div class="smarttv-card" data-product="watchonn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21,17H3V5H21M21,3H3A2,2 0 0,0 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5A2,2 0 0,0 21,3Z"/>
-                </svg>
+                <img src="./assets/whatcon.webp" alt="Watch On Stick" width="100" height="100" onerror="this.src='./assets/whatcon.png'">
                 <h3>Watch On Stick</h3>
                 <p>Dispositivo básico</p>
                 <div class="price">$45.000</div>
             </div>
+
+            <!-- WatchOn Pro -->
             <div class="smarttv-card" data-product="watchonn-pro">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21,17H3V5H21M21,3H3A2,2 0 0,0 1,5V17A2,2 0 0,0 3,19H8V21H16V19H21A2,2 0 0,0 23,17V5A2,2 0 0,0 21,3Z"/>
-                </svg>
+                <img src="./assets/whatcon.webp" alt="Watch On Pro" width="100" height="100" onerror="this.src='./assets/whatcon.png'">
                 <h3>Watch On Pro</h3>
                 <p>Dispositivo premium</p>
                 <div class="price">$65.000</div>
             </div>
+
         </div>
     </section>
+    <!-- Sección de Pólizas de Seguro -->
+    <section class="polizas-section" id="polizas-section">
+        <h2>Pólizas de seguro</h2>
+        <div class="polizas-grid" id="polizas-grid">
+
+            <!-- Seguro todo riesgo vehículos -->
+            <div class="poliza-card" data-poliza="todo-riesgo">
+                <img src="./assets/todoriesgo.jpg" alt="Seguro todo riesgo vehículos" width="64" height="64" onerror="this.src='./assets/todoriesgo.png'">
+                <h3>Seguros todo riesgo vehículos</h3>
+                <p>Protección completa para tu vehículo.</p>
+            </div>
+
+            <!-- Seguro de vida -->
+            <div class="poliza-card" data-poliza="vida">
+                <img src="./assets/corazon.webp" alt="Seguro de vida" width="64" height="64" onerror="this.src='./assets/corazon.png'">
+                <h3>Seguro de vida</h3>
+                <p>Tranquilidad para ti y tu familia.</p>
+            </div>
+
+            <!-- Seguro de vivienda -->
+            <div class="poliza-card" data-poliza="vivienda">
+                <img src="./assets/casa.png" alt="Seguro de vivienda" width="64" height="64" onerror="this.src='./assets/casa.jpg'">
+                <h3>Seguro de vivienda</h3>
+                <p>Protege tu hogar y tus bienes.</p>
+            </div>
+
+            <!-- Seguro de viaje -->
+            <div class="poliza-card" data-poliza="viaje">
+                <img src="./assets/avin.jpg" alt="Seguro de viaje" width="64" height="64" onerror="this.src='./assets/avin.png'">
+                <h3>Seguro de viaje</h3>
+                <p>Asistencia y cobertura en tus viajes.</p>
+            </div>
+
+            <!-- Otros -->
+            <div class="poliza-card" data-poliza="otros">
+                <img src="./assets/otros.avif" alt="Otros seguros" width="64" height="64" onerror="this.src='./assets/otros.png'">
+                <h3>Otros</h3>
+                <p>Cuéntanos qué necesitas.</p>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+
+
+    <!-- Sección de Recargas -->
+    <!-- Sección de Recargas -->
+    <section class="recargas-section" id="recargas-section">
+        <h2>Recargas a celular</h2>
+        <div class="recargas-grid" id="recargas-grid">
+
+            <div class="recarga-card" data-recarga="tigo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Tigo_logo.svg" alt="Tigo" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Tigo</h3>
+                <p>Recarga tu línea Tigo.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="claro">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Claro_logo.svg" alt="Claro" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Claro</h3>
+                <p>Recarga tu línea Claro.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="movistar">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Movistar_logo.svg" alt="Movistar" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Movistar</h3>
+                <p>Recarga tu línea Movistar.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="virgin">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Virgin_Mobile_logo.svg" alt="Virgin Mobile" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Virgin</h3>
+                <p>Recarga tu línea Virgin Mobile.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="etb">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/ETB_logo.svg" alt="ETB" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>ETB</h3>
+                <p>Recarga tu línea ETB.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="exito">
+                <img src="https://seeklogo.com/images/M/movil-exito-logo-828A0E5D34-seeklogo.com.png" alt="Móvil Éxito" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Móvil Éxito</h3>
+                <p>Recarga tu línea Móvil Éxito.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="wom">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/WOM_logo.svg" alt="Wom" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Wom</h3>
+                <p>Recarga tu línea Wom.</p>
+            </div>
+
+            <div class="recarga-card" data-recarga="otro">
+                <img src="https://cdn-icons-png.flaticon.com/512/565/565655.png" alt="Otro" width="60" height="60" style="object-fit:contain;margin:0 auto;">
+                <h3>Otro</h3>
+                <p>Especifica tu operador en WhatsApp.</p>
+            </div>
+
+        </div>
+    </section>
+
 
     <!-- Sección de ubicaciones -->
     <section class="locations-section">

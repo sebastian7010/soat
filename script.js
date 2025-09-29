@@ -150,46 +150,72 @@ async function loadPerfumes() {
 }
 
 // Manejar clicks en botones de servicios
-function setupServiceButtons() {
+ function setupServiceButtons() {
   const buttons = document.querySelectorAll(".service-btn");
-  const perfumesSection = document.getElementById("perfumes-section");
-  const entretenimientoSection = document.getElementById("entretenimiento-section");
-  const smarttvSection = document.getElementById("smarttv-section");
+
+  // Referencias a secciones
+  const sections = {
+    perfumes: document.getElementById("perfumes-section"),
+    entretenimiento: document.getElementById("entretenimiento-section"),
+    smarttv: document.getElementById("smarttv-section"),
+    tramites: document.getElementById("tramites-section"),
+    polizas: document.getElementById("polizas-section"),
+    recargas: document.getElementById("recargas-section"),
+  };
+
+  // Oculta todas las secciones
+  const hideAll = () => {
+    Object.values(sections).forEach((sec) => sec?.classList.remove("active"));
+  };
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       const service = button.getAttribute("data-service");
       let mensaje = "";
 
-      perfumesSection.classList.remove("active");
-      entretenimientoSection.classList.remove("active");
-      smarttvSection.classList.remove("active");
+      hideAll();
 
       switch (service) {
+        case "entretenimiento":
+          sections.entretenimiento?.classList.add("active");
+          sections.entretenimiento?.scrollIntoView({ behavior: "smooth" });
+          return;
+
+        case "tramites":
+          sections.tramites?.classList.add("active");
+          sections.tramites?.scrollIntoView({ behavior: "smooth" });
+          return;
+
+        case "smarttv":
+          sections.smarttv?.classList.add("active");
+          sections.smarttv?.scrollIntoView({ behavior: "smooth" });
+          return;
+
+        case "polizas":
+          sections.polizas?.classList.add("active");
+          sections.polizas?.scrollIntoView({ behavior: "smooth" });
+          return;
+
+        case "perfumes":
+          sections.perfumes?.classList.add("active");
+          sections.perfumes?.scrollIntoView({ behavior: "smooth" });
+          return;
+
+        case "recargas": // mostrar la sección de recargas (no WhatsApp directo)
+          sections.recargas?.classList.add("active");
+          sections.recargas?.scrollIntoView({ behavior: "smooth" });
+          return;
+
         case "soat":
           mensaje = "Estoy interesado en renovar mi SOAT";
           break;
-        case "entretenimiento":
-          entretenimientoSection.classList.add("active");
-          entretenimientoSection.scrollIntoView({ behavior: "smooth" });
-          return;
-        case "tramites":
-          mensaje = "Hola estoy interesado en resolver mis trámites de tránsito";
+
+        case "recargas-direct": // opcional por si algún botón quisiera ir directo a WhatsApp
+          mensaje = "Hola, quiero hacer una recarga de mi celular.";
           break;
-        case "smarttv":
-          smarttvSection.classList.add("active");
-          smarttvSection.scrollIntoView({ behavior: "smooth" });
-          return;
-        case "polizas":
-          mensaje = "Hola quiero hacer la póliza de (seguro todo riesgo para vehículo - seguros de viaje - seguros de vida - seguros de hogar)";
-          break;
-        case "perfumes":
-          // Mostrar sección de perfumes
-          perfumesSection.classList.add("active");
-          perfumesSection.scrollIntoView({ behavior: "smooth" });
-          return;
-        case "recargas":
-          mensaje = "Hola estoy interesado en hacer recarga de mi celular";
+
+        default:
+          // no-op
           break;
       }
 
@@ -200,6 +226,76 @@ function setupServiceButtons() {
     });
   });
 }
+
+
+
+
+
+
+function setupTramitesButtons() {
+  const grid = document.getElementById("tramites-grid");
+  if (!grid) return;
+
+  grid.addEventListener("click", (e) => {
+    const card = e.target.closest(".tramite-card");
+    if (!card) return;
+
+    const tipo = card.getAttribute("data-tramite");
+    let mensaje = "Hola, quiero realizar un trámite de tránsito.";
+
+    switch (tipo) {
+      case "impuesto":
+        mensaje = "Hola, quiero hacer el Pago de impuesto vehicular.";
+        break;
+      case "semaforizacion":
+        mensaje = "Hola, quiero hacer el Pago de semaforización.";
+        break;
+      case "fotomultas":
+        mensaje = "Hola, quiero hacer el Pago de foto multas.";
+        break;
+      case "otros":
+        mensaje = "Hola, quiero realizar otro trámite de tránsito (por favor indicar).";
+        break;
+    }
+
+    const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+    window.open(whatsappUrl, "_blank");
+  });
+}
+function setupPolizasButtons() {
+  const grid = document.getElementById("polizas-grid");
+  if (!grid) return;
+
+  grid.addEventListener("click", (e) => {
+    const card = e.target.closest(".poliza-card");
+    if (!card) return;
+
+    const tipo = card.getAttribute("data-poliza");
+    let mensaje = "Hola, quiero cotizar una póliza de seguro.";
+
+    switch (tipo) {
+      case "todo-riesgo":
+        mensaje = "Hola, quiero cotizar un Seguro Todo Riesgo para vehículo.";
+        break;
+      case "vida":
+        mensaje = "Hola, quiero cotizar un Seguro de Vida.";
+        break;
+      case "vivienda":
+        mensaje = "Hola, quiero cotizar un Seguro de Vivienda (hogar).";
+        break;
+      case "viaje":
+        mensaje = "Hola, quiero cotizar un Seguro de Viaje.";
+        break;
+      case "otros":
+        mensaje = "Hola, quiero cotizar otra póliza (por favor indicar).";
+        break;
+    }
+
+    const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+    window.open(whatsappUrl, "_blank");
+  });
+}
+
 
 // Manejar clicks en botones de entretenimiento
 function setupEntertainmentButtons() {
@@ -278,6 +374,50 @@ function setupEntertainmentButtons() {
     });
   });
 }
+
+function setupRecargasButtons() {
+  const grid = document.getElementById("recargas-grid");
+  if (!grid) return;
+
+  grid.addEventListener("click", (e) => {
+    const card = e.target.closest(".recarga-card");
+    if (!card) return;
+
+    const operador = card.getAttribute("data-recarga");
+    let mensaje = "Hola, quiero hacer una recarga de celular.";
+
+    switch (operador) {
+      case "tigo":
+        mensaje = "Hola, quiero hacer una recarga para Tigo.";
+        break;
+      case "claro":
+        mensaje = "Hola, quiero hacer una recarga para Claro.";
+        break;
+      case "movistar":
+        mensaje = "Hola, quiero hacer una recarga para Movistar.";
+        break;
+      case "virgin":
+        mensaje = "Hola, quiero hacer una recarga para Virgin Mobile.";
+        break;
+      case "etb":
+        mensaje = "Hola, quiero hacer una recarga para ETB.";
+        break;
+      case "exito":
+        mensaje = "Hola, quiero hacer una recarga para Móvil Éxito.";
+        break;
+      case "wom":
+        mensaje = "Hola, quiero hacer una recarga para Wom.";
+        break;
+      case "otro":
+        mensaje = "Hola, quiero hacer una recarga. Mi operador es: (especificar)";
+        break;
+    }
+
+    const whatsappUrl = `https://wa.me/573003085467?text=${encodeURIComponent(mensaje)}`;
+    window.open(whatsappUrl, "_blank");
+  });
+}
+
 
 function setupSmartTVButtons() {
   const smarttvCards = document.querySelectorAll(".smarttv-card");
@@ -524,6 +664,12 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSmartTVButtons();
   setupNavButtons();
   animateButtons();
+    setupTramitesButtons(); // <-- NUEVO
+      setupPolizasButtons(); // <-- NUEVO
+        setupRecargasButtons(); // <-- NUEVO
+
+
+
   enableAdminTrigger(); // activar panel admin oculto (5 clics al logo)
 });
 

@@ -716,3 +716,205 @@ body {
     font-size: 12px;
     color: #6b7280;
 }
+
+
+/* Sección de trámites de tránsito */
+
+.tramites-section {
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+    position: relative;
+    z-index: 5;
+    display: none;
+    /* oculta por defecto */
+}
+
+.tramites-section.active {
+    display: block;
+}
+
+.tramites-section h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.tramites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tramite-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #e5e7eb;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tramite-card:hover {
+    border-color: #dc2626;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.2);
+}
+
+.tramite-card h3 {
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.tramite-card p {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+/* Sección de pólizas de seguro */
+
+.polizas-section {
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+    position: relative;
+    z-index: 5;
+    display: none;
+    /* oculta por defecto */
+}
+
+.polizas-section.active {
+    display: block;
+}
+
+.polizas-section h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.polizas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.poliza-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #e5e7eb;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.poliza-card:hover {
+    border-color: #e90e0e;
+    /* celestico */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+}
+
+.poliza-card h3 {
+    color: #000000;
+    font-size: 14px;
+    margin: 10px 0 6px 0;
+    font-weight: 700;
+}
+
+.poliza-card p {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+/* imagen redonda y centrada */
+
+.poliza-card img {
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 8px auto;
+}
+
+
+/* Sección de recargas */
+
+.recargas-section {
+    padding: 40px 20px;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+    position: relative;
+    z-index: 5;
+    display: none;
+}
+
+.recargas-section.active {
+    display: block;
+}
+
+.recargas-section h2 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.recargas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.recarga-card {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 15px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid #e5e7eb;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.recarga-card:hover {
+    border-color: #22c55e;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.2);
+}
+
+.recarga-card h3 {
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.recarga-card p {
+    color: #6b7280;
+    font-size: 12px;
+}
